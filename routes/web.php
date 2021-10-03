@@ -26,8 +26,9 @@ Route::get('/test', function(){
 });
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-
-
+Route::resource('cal', 'gCalendarController');
+Route::get('oauth', 'gCalendarController@oauth');
+Route::get('calendarlogout', 'gCalendarController@calendarlogout');
 // Auth
 Route::group(['middleware' => 'auth'], function () {
 
