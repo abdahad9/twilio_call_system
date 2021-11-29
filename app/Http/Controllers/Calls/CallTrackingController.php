@@ -10,6 +10,7 @@ use App\Models\BlockList;
 use App\CallLog;
 use App\Models\TwilioPhoneNumbers;
 use DB;
+use Mail;
 
 class CallTrackingController extends Controller
 {
@@ -50,6 +51,7 @@ class CallTrackingController extends Controller
     }
     public function calllogs(Request $request)
     {
+        $mail_to = config('mail.to');
         $sid = config('twilio.sid');
         $token = config('twilio.token');
         $twilio = new Client($sid, $token);
@@ -67,6 +69,15 @@ class CallTrackingController extends Controller
                 $CallLogs->time = $call->dateCreated;
                 $CallLogs->status = $call->status;
                 $CallLogs->call_sid = $call->parentCallSid;
+
+                $details = [
+                    // 'phonenumber' => '1212',
+                    'datetime' =>  $call->dateCreated,
+                    'CallDuration' => $call->duration,
+                    'to' => $call->to,
+                    'from' => $call->from,
+                    'sid' =>  $call->parentCallSid,  
+                ];
             }
         }
         $recordings = $twilio->recordings->read(array('callSid' => $callsid), 50);
@@ -75,7 +86,11 @@ class CallTrackingController extends Controller
             }
 
         $CallLogs->save();
-        \Log::info('call save in database');
+
+
+        Mail::to($mail_to)->send(new \App\Mail\MyTestMail($details));
+            \Log::info('Email sent');
+            \Log::info('call save in database');
         return response()->json('success', 200);
     }
     public function choosenumber(Request $request)

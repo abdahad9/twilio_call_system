@@ -2,8 +2,16 @@
 
 @section('content')
 <div class="app-content">
+    <div id="call_loader">
+    <div id="global-loader" style="background: rgba(0,0,0,0.2)">
+        <img src="/backend/assets/images/svgs/loader.svg" alt="loader">
+    </div>
+    </div>
     <div class="side-app">
-
+        <h1 id="demo" style="float: right; margin-top: 12px;" ><time>00:00:00</time></h1>
+        {{-- <button type="button" onclick="start2()">start</button> --}}
+        {{-- <button id="stop">stop</button> --}}
+        {{-- <button id="clear">clear</button> --}}
 
         <!-- Row-->
         {{-- @include('app-partials.messages', ['errors' => $errors]) --}}
@@ -22,9 +30,9 @@
                                     <label class="form-label">Select Calling server <span class="text-red">*</span></label>
                                     <select onchange="val()" id="server" name="server" class="form-control custom-select select2" required>
                                         <option value="0">--Select--</option>
-                                        <option value="google_meets">Google meets</option>
+                                        <option value="google_meets">Google Meet</option>
                                         <option value="zoom">Zoom</option>
-                                        <option value="google_meets">Microsoft teams</option>
+                                        <option value="google_meets">Microsoft Teams</option>
                                     </select>
                                 </div>
                             </div>
@@ -90,6 +98,33 @@ function val() {
         document.getElementById("participant").style.display=('none');
     }
 }
+
+var h1 = document.getElementsByTagName('h1')[0],
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    clear = document.getElementById('clear'),
+    seconds = 0, minutes = 0, hours = 0,
+    t;
+
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+    
+    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+function timer() {
+    t = setTimeout(add, 1000);
+}
+
 </script>
 
 @stop

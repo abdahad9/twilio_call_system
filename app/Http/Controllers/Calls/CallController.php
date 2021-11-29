@@ -40,7 +40,7 @@ class CallController extends Controller
             if($server == 'google_meets'){
                 $dial->number($phoneNumberToDial,['sendDigits'=>$pin]);
             }else{
-                $dial->number($phoneNumberToDial,["record" => True,'sendDigits'=>$zoom_pin]);
+                $dial->number($phoneNumberToDial,['sendDigits'=>$zoom_pin]);
             }
         } else {
             $dial->client('support_agent');

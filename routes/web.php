@@ -30,11 +30,11 @@ Route::resource('cal', 'gCalendarController');
 Route::get('oauth', 'gCalendarController@oauth');
 Route::get('calendarlogout', 'gCalendarController@calendarlogout');
 // Auth
+Route::get('/', function () {
+    return view('welcome');
+});
 Route::group(['middleware' => 'auth'], function () {
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::group(['as' => 'calls.', 'prefix' => 'calls'], function () {
 
      Route::get('/tracking/report', [

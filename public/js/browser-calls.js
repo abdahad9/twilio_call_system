@@ -6118,7 +6118,16 @@ var callStatus = $("#call-status");
 var answerButton = $(".answer-button");
 var callSupportButton = $(".call-support-button");
 var hangUpButton = $(".hangup-button");
-var callCustomerButtons = $(".call-customer-button");
+var callCustomerButtons = $(".call-customer-button"); // time duration during call
+
+var h1 = document.getElementsByTagName('h1')[0],
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    clear = document.getElementById('clear'),
+    seconds = 0,
+    minutes = 0,
+    hours = 0,
+    t;
 var device = null;
 /* Helper function to update the call status bar */
 
@@ -6144,7 +6153,11 @@ function setupHandlers(device) {
   /* Callback for when Twilio Client initiates a new connection */
 
   device.on('connect', function (connection) {
-    // Enable the hang up button and disable the call buttons
+    // hide loader
+    document.getElementById("call_loader").style.display = "none"; // mute call
+
+    connection.mute(true); // Enable the hang up button and disable the call buttons
+
     hangUpButton.prop("disabled", false);
     $(".hangup-button").show(); // callCustomerButtons.prop("disabled", true);
 
@@ -6159,6 +6172,8 @@ function setupHandlers(device) {
       // This is a call from a website user to a support agent
       updateCallStatus("In call with support");
     }
+
+    timer();
   });
   /* Callback for when a call ends */
 
@@ -6170,6 +6185,11 @@ function setupHandlers(device) {
     callCustomerButtons.prop("disabled", false);
     callSupportButton.prop("disabled", false);
     updateCallStatus("Ready");
+    h1.textContent = "00:00:00";
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    clearTimeout(t);
   });
   /* Callback for when Twilio Client receives a new incoming call */
 
@@ -6215,6 +6235,7 @@ window.callCustomer = function () {
   });
 
   if (allAreFilled) {
+    document.getElementById("call_loader").style.display = "block";
     document.getElementById("endbtn").style.display == "inline";
     var server = $('#server').val();
     var phoneNumber = $('#phoneNumber').val();
@@ -6246,6 +6267,27 @@ window.callSupport = function () {
 window.hangUp = function () {
   device.disconnectAll();
 };
+
+function add() {
+  seconds++;
+
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes++;
+
+    if (minutes >= 60) {
+      minutes = 0;
+      hours++;
+    }
+  }
+
+  h1.textContent = (hours ? hours > 9 ? hours : "0" + hours : "00") + ":" + (minutes ? minutes > 9 ? minutes : "0" + minutes : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+  timer();
+}
+
+function timer() {
+  t = setTimeout(add, 1000);
+}
 
 /***/ }),
 

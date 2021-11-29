@@ -46,12 +46,15 @@ class gCalendarController extends Controller
              $calendarId = 'primary';
               $results = $service->events->listEvents($calendarId);
          $events = $results->getItems();
-             for ($x = 0; $x < count($events); $x++){
+         for ($x = 0; $x < count($events); $x++){
+                //  dd($events);
                 if(isset($events[$x]->conferenceData['entryPoints'][2]->pin)) {$pin =($events[$x]->conferenceData['entryPoints'][2]->pin);} else {$pin = "null";};
                 if(isset($events[$x]->conferenceData['entryPoints'][2]->label)) {$phone = ($events[$x]->conferenceData['entryPoints'][2]->label);} else {$phone = "null";};
+                if(isset($events[$x]->start->dateTime)) {$startdate = ($events[$x]->start->dateTime);} else {$startdate = "null";};
+                if(isset($events[$x]->organizer->email)) {$organizerEmail = ($events[$x]->organizer->email);} else {$organizerEmail = "null";};
                 $Totalguest='';
                 $guests= $events[$x]['attendees']; foreach ($guests as $guest) { $Totalguest = $Totalguest. ($guest->email). " \n";};
-               $done= $savingpage->save($email,$emailid, $events[$x]->start->dateTime,$events[$x]->getSummary(),$events[$x]->getDescription(),$events[$x]->getLocation(),$events[$x]->getHangoutLink(),$events[$x]->organizer->email,$phone,$pin,$Totalguest);
+               $done= $savingpage->save($email,$emailid,$startdate,$events[$x]->getSummary(),$events[$x]->getDescription(),$events[$x]->getLocation(),$events[$x]->getHangoutLink(),$organizerEmail,$phone,$pin,$Totalguest);
              }
             return "Thank you! You have successfully connected your GSuite Account to NoteTakerPro. By doing this will start to sync your calendar meetings over to our platform.";
 

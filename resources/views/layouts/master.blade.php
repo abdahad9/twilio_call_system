@@ -18,10 +18,10 @@
         <meta name="keywords" content="admin, bootstrap admin template, bootstrap dashboard, dashboard, panel, simple dashboard html template, dashboard template bootstrap 4, simple admin panel template, bootstrap 4 admin dashboard, html css dashboard template, themeforest admin template, premium bootstrap template, admin panel html template, admin template design, dark admin template, admin dashboard ui, css admin template, cool admin template, nice admin template"/>
         <!-- Scripts -->
         {{-- <script src=" /js/app.js" defer></script> --}}
-         <script src=" /js/manifest.js"></script>
-            <script src=" /js/vendor.js"></script>
+         <script src="http://5392-119-153-156-31.ngrok.io/js/manifest.js"></script>
+            <script src="http://5392-119-153-156-31.ngrok.io/js/vendor.js"></script>
     {{-- <script src="/js/browser-calls.js"></script> --}}
-    <script src=" /js/browser-calls.js" defer></script>
+    <script src="http://5392-119-153-156-31.ngrok.io/js/browser-calls.js" defer></script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">

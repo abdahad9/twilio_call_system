@@ -12,6 +12,14 @@ var callSupportButton = $(".call-support-button");
 var hangUpButton = $(".hangup-button");
 var callCustomerButtons = $(".call-customer-button");
 
+// time duration during call
+var h1 = document.getElementsByTagName('h1')[0],
+    start = document.getElementById('start'),
+    stop = document.getElementById('stop'),
+    clear = document.getElementById('clear'),
+    seconds = 0, minutes = 0, hours = 0,
+    t;
+
 var device = null;
 
 /* Helper function to update the call status bar */
@@ -36,6 +44,10 @@ function setupHandlers(device) {
 
     /* Callback for when Twilio Client initiates a new connection */
     device.on('connect', function (connection) {
+        // hide loader
+        document.getElementById("call_loader").style.display = "none";
+        // mute call
+        connection.mute(true);       
         // Enable the hang up button and disable the call buttons
         hangUpButton.prop("disabled", false);
          $(".hangup-button").show();
@@ -52,6 +64,8 @@ function setupHandlers(device) {
             // This is a call from a website user to a support agent
             updateCallStatus("In call with support");
         }
+
+        timer();
     });
 
     /* Callback for when a call ends */
@@ -64,6 +78,9 @@ function setupHandlers(device) {
         callSupportButton.prop("disabled", false);
 
         updateCallStatus("Ready");
+        h1.textContent = "00:00:00";
+        seconds = 0; minutes = 0; hours = 0;
+        clearTimeout(t);
     });
 
     /* Callback for when Twilio Client receives a new incoming call */
@@ -107,7 +124,8 @@ window.callCustomer = function() {
             allAreFilled = false;
         } 
     })
-    if (allAreFilled) {
+    if (allAreFilled) {    
+    document.getElementById("call_loader").style.display = "block";
     document.getElementById("endbtn").style.display=="inline";
     let server = $('#server').val();
     let phoneNumber = $('#phoneNumber').val();
@@ -117,7 +135,6 @@ window.callCustomer = function() {
     updateCallStatus("Calling " + phoneNumber + "...");
     var params = {"server":server,"phoneNumber": phoneNumber,"from_number": from_number,"pin": pin,"participant_id":participant_id};
     device.connect(params);
-
     }
 };
 
@@ -133,3 +150,23 @@ window.callSupport = function() {
 window.hangUp = function() {
     device.disconnectAll();
 };
+
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+    
+    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+function timer() {
+    t = setTimeout(add, 1000);
+}
+

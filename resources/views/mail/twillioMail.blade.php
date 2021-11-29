@@ -94,7 +94,7 @@
         <div class="flex flex-non">
             <div class="flex">
                 <p class="text-heading">Phone call :</p>
-                <p class="text">{{ $details['phonenumber'] }}</p>
+                {{-- <p class="text">{{ $details['phonenumber'] }}</p> --}}
             </div>
             <div class="flex">
                 <p class="text-heading space">Duration :</p>

@@ -14,6 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
          '/support/call',
          '/incomming',
-         '/mail',
+         '/logs',
     ];
 }
