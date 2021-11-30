@@ -158,3 +158,22 @@ Route::get(
    '/mail',
    ['uses' => 'Mail\MailController@mail', 'as' => 'mail']
 );
+
+
+//fv routes
+Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
+
+    Route::get('/', [
+        'uses' => 'Forwarding\ForwardingController@index',
+        'as' => 'index',
+        ]);
+    Route::get('/edit', [
+        'uses' => 'Forwarding\ForwardingController@edit',
+        'as' => 'edit',
+        ]);
+      /* Route::post('/store', [
+        'uses' => 'Forwarding\ForwardingController@storeSiteSetting',
+        'as' => 'store',
+        ]); */
+      
+});
