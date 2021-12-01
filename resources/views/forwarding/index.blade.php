@@ -41,13 +41,20 @@
                                                     <div class="card-body">
                                                         <div class="e-table">
                                                             <div class="row">
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
+                                                                    <select class="form-control">
+                                                                        <option>All Numbers</option>
+                                                                        <option>+15102934522</option>
+                                                                        <option>+15102934522</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-4">
                                                                     <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                                                         <i class="fa fa-calendar"></i>&nbsp;
                                                                         <span></span> <i class="fa fa-caret-down"></i>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-6">
+                                                                <div class="col-md-4">
                                                                     <select class="form-control">
                                                                         <option>-- Select option --</option>
                                                                         <option>By Day</option>
@@ -85,7 +92,8 @@
                                                                             <td>27s</td>
                                                                             <td>510xxxxxxxx</td>
                                                                             <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
+                                                                                <a href="#" class="btn btn-primary"><i class="ion ion-arrow-down-c"></i></a>
+                                                                                <a href="#" class="btn btn-success"><i class="ion ion-arrow-right-b"></i></a>
                                                                             </td>
                                                                             
                                                                         </tr>
@@ -95,7 +103,8 @@
                                                                             <td>27s</td>
                                                                             <td>510xxxxxxxx</td>
                                                                             <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
+                                                                                <a href="#" class="btn btn-primary"><i class="ion ion-arrow-down-c"></i></a>
+                                                                                <a href="#" class="btn btn-success"><i class="ion ion-arrow-right-b"></i></a>
                                                                             </td>
                                                                             
                                                                         </tr>
@@ -105,7 +114,7 @@
                                                                             <td>27s</td>
                                                                             <td>510xxxxxxxx</td>
                                                                             <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
+                                                                                <a href="#" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
                                                                             </td>
                                                                             
                                                                         </tr>
@@ -115,7 +124,7 @@
                                                                             <td>27s</td>
                                                                             <td>510xxxxxxxx</td>
                                                                             <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
+                                                                                <a href="#" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
                                                                             </td>
                                                                             
                                                                         </tr>
@@ -125,7 +134,7 @@
                                                                             <td>27s</td>
                                                                             <td>510xxxxxxxx</td>
                                                                             <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
+                                                                                <a href="#" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
                                                                                 
                                                                             </td>
                                                                             
@@ -167,9 +176,9 @@
                                                                 <table class="table table-bordered border-top text-nowrap " id="example1">
                                                                     <thead>
                                                                         <tr>
+                                                                            <th>Create Date</th>
                                                                             <th>Number</th>
-                                                                            <th>Source</th>
-                                                                            <th>Tracking Number</th>
+                                                                            <th>Friendly Name</th>
                                                                             <th>Forward Call To</th>
                                                                             <th>Call Recording</th>
                                                                             <th>Status</th>
@@ -177,61 +186,34 @@
                                                                         </tr>
                                                                     </thead>
                                                                      <tbody>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>other</td>
-                                                                            <td>510-xxx-xxxx</td>
-                                                                            <td>+1213xxxxxxx</td>
-                                                                            <td>On</td>
-                                                                            <td>Active</td>
-                                                                            <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn"><i class="ion ion-edit"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>other</td>
-                                                                            <td>510-xxx-xxxx</td>
-                                                                            <td>+1213xxxxxxx</td>
-                                                                            <td>On</td>
-                                                                            <td>Active</td>
-                                                                            <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn"><i class="ion ion-edit"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>other</td>
-                                                                            <td>510-xxx-xxxx</td>
-                                                                            <td>+1213xxxxxxx</td>
-                                                                            <td>On</td>
-                                                                            <td>Active</td>
-                                                                            <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn"><i class="ion ion-edit"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>other</td>
-                                                                            <td>510-xxx-xxxx</td>
-                                                                            <td>+1213xxxxxxx</td>
-                                                                            <td>On</td>
-                                                                            <td>Active</td>
-                                                                            <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn"><i class="ion ion-edit"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>other</td>
-                                                                            <td>510-xxx-xxxx</td>
-                                                                            <td>+1213xxxxxxx</td>
-                                                                            <td>On</td>
-                                                                            <td>Active</td>
-                                                                            <td>
-                                                                                <a href="{{ route('forwarding.edit') }}" class="btn"><i class="ion ion-edit"></i></a>
-                                                                            </td>
-                                                                        </tr>
+                                                                        
+                                                                        @foreach($numbers as $number)
+                                                                            <tr>
+                                                                                <td>{{$number->created_at}}</td>
+                                                                                <td>{{$number->phoneNumber}}</td>
+                                                                                <td>{{$number->friendlyName}}</td>
+                                                                                <td>{{$number->forward_to}}</td>
+                                                                                <td>
+                                                                                    @if($number->recording_status == 'true')
+                                                                                        On
+                                                                                    @else
+                                                                                        Off
+                                                                                    @endif
+                                                                                </td>
+                                                                                <td>
+                                                                                    @if($number->number_status == 'true')
+                                                                                        Active
+                                                                                    @else
+                                                                                        Inactive
+                                                                                    @endif
+                                                                                </td>
+                                                                                <td>
+                                                                                    <a class="btn" href="{{ route('forwarding.edit', $number->id) }}">
+                                                                                        <i class="ion ion-edit"></i>
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
                                                                        {{-- @foreach ($phoneNumbers as $phone)
                                                                              <tr>
                                                                               <td>
@@ -253,43 +235,52 @@
                                                                 <div class="modal" id="modaldemo2">
                                                                     <div class="modal-dialog" role="document">
                                                                         <div class="modal-content modal-content-demo">
-                                                                            <div class="modal-header">
-                                                                                <h6 class="modal-title">Add New Local Number</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
-                                                                            </div>
-                                                                            <div class="col-md-12">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-8">
-                                                                                        <div class="form-group">
-                                                                                            <label class="form-label">Area code <span class="text-red">*</span></label>
-                                                                                            <input type="text" name="area_code" class="form-control">
-                                                                                        </div>
+                                                                            <form method="POST" action="{{ route('forwarding.purchase-number') }}">
+                                                                                @csrf
+                                                                                <div class="modal-header">
+                                                                                    <h6 class="modal-title">Add New Number</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label>Type</label>
+                                                                                        <select class="form-control" name="type" id="number_type">
+                                                                                            <option value="local">Local</option>
+                                                                                            <option value="tollfree">Tollfree</option>
+                                                                                        </select>
                                                                                     </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="col-md-4 pt-3">
-                                                                                            <button class="btn btn-primary mt-4">Get Number</button>
+                                                                                </div>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-8">
+                                                                                            <div class="form-group">
+                                                                                                <label class="form-label">Area code <span class="text-red">*</span></label>
+                                                                                                <input type="number" name="area_code" class="form-control" id="area_code" required>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <div class="col-md-4 pt-3">
+                                                                                                <button type="button" class="btn btn-primary mt-4" id="get_numbers">Get Number</button>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label class="form-label">Choose number <span class="text-red">*</span></label>
-                                                                                    <select id="addnumber" name="addnumber" class="form-control custom-select select2" required>
-                                                                                        <option>+51021212xxx</option>
-                                                                                        <option>+51021212xxx</option>
-                                                                                        <option>+51021212xxx</option>
-                                                                                        <option>+51021212xxx</option>
-                                                                                        <option>+51021212xxx</option>
-                                                                                  {{--@foreach ( $local as $record )
-                                                                                    <option value="{{$record->friendlyName}}">{{$record->phoneNumber}}</option>
-                                                                                    @endforeach --}}
-                                                                                    </select>
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label">Choose number <span class="text-red">*</span></label>
+                                                                                        <select id="addnumber" name="addnumber[]" class="form-control custom-select select2 js-example-basic-multiple" required multiple="multiple">
+                                                                                            
+                                                                                        </select>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
 
-                                                                            <div class="modal-footer">
-                                                                                <button id="add" class="btn btn-indigo" type="button">Add</button> <button class="btn btn-light" data-dismiss="modal" type="button">Close</button>
-                                                                            </div>
+                                                                                <div class="modal-footer">
+                                                                                    <div class="d-flex justify-content-between" style="width: 100%;">
+                                                                                        <button class="btn btn-light float-left" data-dismiss="modal" type="button">Close</button>
+                                                                                    <button id="add" class="btn btn-indigo" type="submit">Add</button> 
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -321,14 +312,24 @@
                 </div><!-- end app-content-->
 @endsection
 @section('scripts')
+<style type="text/css">
+    .modal {
+    z-index: 1050 !important;
+}
+.modal-backdrop {
+    z-index: 1049 !important;
+}
+</style>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     $(function() {
-
+        $('.js-example-basic-multiple').select2();
         var start = moment().subtract(29, 'days');
         var end = moment();
 
@@ -397,5 +398,43 @@
     document.getElementById('myChart'),
     config
   );
+
+    $(document).on('click','#get_numbers',function(){
+        $(this).prop('disabled', true)
+        $(this).html('Processing');
+        var areaCode = $('#area_code').val();
+        var number_type = $("#number_type").val();
+        var $this = this;
+        if(areaCode != ''){
+            $.ajax({
+                url: '{{ route('forwarding.get-number') }}',
+                method: 'POST',
+                dataType: 'json',
+                data: {area_code:areaCode,type:number_type , _token: '{{ csrf_token() }}' },
+                success: function(data){
+                    $($this).prop('disabled', false)
+                    $($this).html('Get Number');
+                    var selectHtml = '';
+                    $.each(data, function(index,val){
+                        selectHtml +=`<option>${val}</option>`;
+                    })
+                    $('#addnumber').html(selectHtml);
+                    $('.js-example-basic-multiple').select2();
+                    // console.log(data)
+                }, error: function(error){
+                    $($this).prop('disabled', false)
+                    $($this).html('Get Number');
+                    console.log(error)
+                }
+            })
+        }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Area Code required!'
+            })
+        }
+        
+    });
 </script>
 @stop

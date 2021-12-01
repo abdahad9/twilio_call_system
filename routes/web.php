@@ -161,19 +161,40 @@ Route::get(
 
 
 //fv routes
-Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
 
-    Route::get('/', [
-        'uses' => 'Forwarding\ForwardingController@index',
-        'as' => 'index',
+        Route::get('/', [
+            'uses' => 'Forwarding\ForwardingController@index',
+            'as' => 'index',
         ]);
-    Route::get('/edit', [
-        'uses' => 'Forwarding\ForwardingController@edit',
-        'as' => 'edit',
+        Route::get('/edit/{id}', [
+            'uses' => 'Forwarding\ForwardingController@edit',
+            'as' => 'edit',
         ]);
-      /* Route::post('/store', [
-        'uses' => 'Forwarding\ForwardingController@storeSiteSetting',
-        'as' => 'store',
-        ]); */
-      
+        Route::post('/edit/{id}', [
+            'uses' => 'Forwarding\ForwardingController@update',
+            'as' => 'edit',
+        ]);
+        Route::post('/get-number', [
+            'uses' => 'Forwarding\ForwardingController@getTwilioNumbers',
+            'as' => 'get-number',
+        ]); 
+        Route::post('/purchase-number', [
+            'uses' => 'Forwarding\ForwardingController@purchaseNumbers',
+            'as' => 'purchase-number',
+        ]); 
+          
+    });
 });
+Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
+    Route::post('/call-status',[
+        'uses' => 'Calls\CallController@callStatus', 
+        'as' => 'call-status'
+    ]);
+    Route::post('/incomming',[
+        'uses' => 'Calls\CallController@incomming', 
+        'as' => 'incomming'
+    ]);
+});
+
