@@ -34,7 +34,21 @@
                                                         <h4>Number Options</h4>
                                                     </div>
                                                     <div>
-                                                        <button class="btn btn-outline-danger">Disable Number</button>
+                                                        <form method="POST" action="{{ route('forwarding.number-status') }}">
+                                                            @csrf
+                                                            <input type="hidden" name="id" value="{{$twilio_number->id}}">
+
+                                                            <input type="hidden" name="number_status" @if($twilio_number->number_status === 'true') value="false" @else value="true" @endif>
+
+                                                            <button type="submit" class="btn @if($twilio_number->number_status === 'true') btn-outline-danger @else btn-outline-success @endif">
+                                                                @if($twilio_number->number_status === 'true') 
+                                                                    Disable Number 
+                                                                @else 
+                                                                    Enable Number
+                                                                @endif
+                                                            </button>
+                                                        </form>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="row border-top mt-2" style="margin-right:-25px">
@@ -66,7 +80,7 @@
                                                                       <label class="text-muted" style="font-size: 10px;">Enter the number that you want your calls forward to</label>
                                                                   </div>
                                                                 </div>
-                                                                <input type="text" name="forward_to" value="{{$twilio_number->forward_to}}" class="form-control" required>
+                                                                <input type="text" name="forward_to" value="{{$twilio_number->forward_to}}" class="form-control" required pattern="[0-9]{10}">
                                                             </div>
                                                             
                                                             <div class="form-group mt-2">

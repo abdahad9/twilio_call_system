@@ -168,6 +168,27 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'Forwarding\ForwardingController@index',
             'as' => 'index',
         ]);
+        Route::post('/number-status', [
+            'uses' => 'Forwarding\ForwardingController@updateNumberStatus',
+            'as' => 'number-status',
+        ]);
+        Route::post('/get-call-chart', [
+            'uses' => 'Forwarding\ForwardingController@getCallChart',
+            'as' => 'get-call-chart',
+        ]); 
+        Route::post('/call-log-export', [
+            'uses' => 'Forwarding\ForwardingController@logExport',
+            'as' => 'call-log-export',
+        ]); 
+        Route::get('/get_all', [
+            'uses' => 'Forwarding\ForwardingController@get_all',
+            'as' => 'get_all',
+        ]);
+        Route::get('/get_all_calllogs', [
+            'uses' => 'Forwarding\ForwardingController@get_all_calllogs',
+            'as' => 'get_all_calllogs',
+        ]);
+
         Route::get('/edit/{id}', [
             'uses' => 'Forwarding\ForwardingController@edit',
             'as' => 'edit',
@@ -189,12 +210,18 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
     Route::post('/call-status',[
-        'uses' => 'Calls\CallController@callStatus', 
+        'uses' => 'Forwarding\ForwardingController@callStatus', 
         'as' => 'call-status'
     ]);
     Route::post('/incomming',[
-        'uses' => 'Calls\CallController@incomming', 
+        'uses' => 'Forwarding\ForwardingController@incomming', 
         'as' => 'incomming'
     ]);
+
+    Route::post('/recording',[
+        'uses' => 'Forwarding\ForwardingController@recording', 
+        'as' => 'recording'
+    ]);
+    
 });
 

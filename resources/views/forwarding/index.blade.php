@@ -41,26 +41,32 @@
                                                     <div class="card-body">
                                                         <div class="e-table">
                                                             <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <select class="form-control">
-                                                                        <option>All Numbers</option>
-                                                                        <option>+15102934522</option>
-                                                                        <option>+15102934522</option>
+                                                                <div class="col-md-4 mt-2">
+                                                                    <select class="form-control js-number-multiple" name="numbers[]" multiple="multiple"  id="numberfilter" style="width:100%">
+                                                                        {{-- <option value="all">All Numbers</option> --}}
+                                                                        @foreach($numbers as $number)
+                                                                            <option value="{{$number->phoneNumber}}">{{$number->friendlyName}}({{$number->phoneNumber}})</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-md-4">
+                                                                <div class="col-md-4 mt-2">
+                                                                    <select class="form-control" id="dateType">
+                                                                        <option value="day">By Day</option>
+                                                                        <option value="month">By Month</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-4 mt-2" id="reportrangeBody">
                                                                     <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
                                                                         <i class="fa fa-calendar"></i>&nbsp;
                                                                         <span></span> <i class="fa fa-caret-down"></i>
                                                                     </div>
+                                                                    <input type="hidden" id="startDate">
+                                                                    <input type="hidden" id="endDate">
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <select class="form-control">
-                                                                        <option>-- Select option --</option>
-                                                                        <option>By Day</option>
-                                                                        <option>By Month</option>
-                                                                    </select>
+                                                                <div class="col-md-4 mt-2" id="datepickerBody" style="display:none;">
+                                                                    <input class="form-control" type="text" readonly name="month" id="datepicker" value="{{date('Y')}}" placeholder="select year">
                                                                 </div>
+                                                                
                                                             </div>
 
                                                             <canvas style="height: 100px;" id="myChart"></canvas>
@@ -70,11 +76,11 @@
                                                                      <h6 class="text-primary">View result one ata time -></h6>
                                                                 </div>
                                                                 <div>
-                                                                    <button class="btn btn-outline-primary">Export</button>
+                                                                    <button onclick="exportData()" class="btn btn-outline-primary">Export</button>
                                                                 </div>
                                                             </div>
                                                            
-                                                            <table class="table table-bordered border-top text-nowrap " style="width:100%" id="example2">
+                                                            <table class="table table-bordered border-top text-nowrap " style="width:100%" id="example_calllogs">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Tracking Number</th>
@@ -86,71 +92,6 @@
                                                                         </tr>
                                                                     </thead>
                                                                      <tbody>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>Nov 18, 9:30 am</td>
-                                                                            <td>27s</td>
-                                                                            <td>510xxxxxxxx</td>
-                                                                            <td>
-                                                                                <a href="#" class="btn btn-primary"><i class="ion ion-arrow-down-c"></i></a>
-                                                                                <a href="#" class="btn btn-success"><i class="ion ion-arrow-right-b"></i></a>
-                                                                            </td>
-                                                                            
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>Nov 18, 9:30 am</td>
-                                                                            <td>27s</td>
-                                                                            <td>510xxxxxxxx</td>
-                                                                            <td>
-                                                                                <a href="#" class="btn btn-primary"><i class="ion ion-arrow-down-c"></i></a>
-                                                                                <a href="#" class="btn btn-success"><i class="ion ion-arrow-right-b"></i></a>
-                                                                            </td>
-                                                                            
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>Nov 18, 9:30 am</td>
-                                                                            <td>27s</td>
-                                                                            <td>510xxxxxxxx</td>
-                                                                            <td>
-                                                                                <a href="#" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
-                                                                            </td>
-                                                                            
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>Nov 18, 9:30 am</td>
-                                                                            <td>27s</td>
-                                                                            <td>510xxxxxxxx</td>
-                                                                            <td>
-                                                                                <a href="#" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
-                                                                            </td>
-                                                                            
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>+1510xxxxxxx</td>
-                                                                            <td>Nov 18, 9:30 am</td>
-                                                                            <td>27s</td>
-                                                                            <td>510xxxxxxxx</td>
-                                                                            <td>
-                                                                                <a href="#" class="btn btn-outline-primary"><i class="ion ion-arrow-down-c"></i></a>
-                                                                                
-                                                                            </td>
-                                                                            
-                                                                        </tr>
-                                                                       {{-- @foreach ($phoneNumbers as $phone)
-                                                                             <tr>
-                                                                              <td>
-                                                                                  {{ $phone->phoneNumber }}
-                                                                              </td><td>
-                                                                                  {{ $phone->friendlyName }}
-                                                                              </td>
-                                                                              <td>
-                                                                                <a onclick="getvalue({{ $phone->phoneNumber }},'{{ $phone->friendlyName }}')" class="btn" data-target="#modaldemo1" data-toggle="modal" href=""><i class="ion ion-edit"></i></a>
-                                                                            </td>
-                                                                         </tr>
-                                                                        @endforeach--}}
                                                                      
                                                                     </tbody>
                                                                 </table>
@@ -173,7 +114,7 @@
                                                         <div class="e-table">
                                                             <button type=""  data-target="#modaldemo2" data-toggle="modal" class="btn btn-primary" style="float: left"><i class="si si-plus" style="margin-left: 6px"></i> Create Number</button>
                                                             <div class="table-responsive table-lg mt-3 pt-2">
-                                                                <table class="table table-bordered border-top text-nowrap " id="example1">
+                                                                <table class="table table-bordered border-top text-nowrap " id="example_number">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Create Date</th>
@@ -186,47 +127,6 @@
                                                                         </tr>
                                                                     </thead>
                                                                      <tbody>
-                                                                        
-                                                                        @foreach($numbers as $number)
-                                                                            <tr>
-                                                                                <td>{{$number->created_at}}</td>
-                                                                                <td>{{$number->phoneNumber}}</td>
-                                                                                <td>{{$number->friendlyName}}</td>
-                                                                                <td>{{$number->forward_to}}</td>
-                                                                                <td>
-                                                                                    @if($number->recording_status == 'true')
-                                                                                        On
-                                                                                    @else
-                                                                                        Off
-                                                                                    @endif
-                                                                                </td>
-                                                                                <td>
-                                                                                    @if($number->number_status == 'true')
-                                                                                        Active
-                                                                                    @else
-                                                                                        Inactive
-                                                                                    @endif
-                                                                                </td>
-                                                                                <td>
-                                                                                    <a class="btn" href="{{ route('forwarding.edit', $number->id) }}">
-                                                                                        <i class="ion ion-edit"></i>
-                                                                                    </a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        @endforeach
-                                                                       {{-- @foreach ($phoneNumbers as $phone)
-                                                                             <tr>
-                                                                              <td>
-                                                                                  {{ $phone->phoneNumber }}
-                                                                              </td><td>
-                                                                                  {{ $phone->friendlyName }}
-                                                                              </td>
-                                                                              <td>
-                                                                                <a onclick="getvalue({{ $phone->phoneNumber }},'{{ $phone->friendlyName }}')" class="btn" data-target="#modaldemo1" data-toggle="modal" href=""><i class="ion ion-edit"></i></a>
-                                                                            </td>
-                                                                         </tr>
-                                                                        @endforeach--}}
-                                                                     
                                                                     </tbody>
                                                                 </table>
                                                                 <!-- BASIC MODAL -->
@@ -295,46 +195,124 @@
                             </div>
                           </div>
                         </div>
-                        <!--Page header-->
-                        {{--<div class="page-header">
-                            <div class="page-leftheader">
-                                <h4 class="page-title"># Phone Numbers</h4>
-                            </div>
-                            <div class="page-rightheader ml-auto d-lg-flex d-none">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Call</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Phone NUmbers</li>
-                                </ol>
-                            </div>
-                        </div> --}}
-                        <!--End Page header-->
                             
                 </div><!-- end app-content-->
 @endsection
 @section('scripts')
 <style type="text/css">
     .modal {
-    z-index: 1050 !important;
-}
-.modal-backdrop {
-    z-index: 1049 !important;
-}
+        z-index: 1050 !important;
+    }
+    .modal-backdrop {
+        z-index: 1049 !important;
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
-    $(function() {
-        $('.js-example-basic-multiple').select2();
-        var start = moment().subtract(29, 'days');
-        var end = moment();
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
+<script type="text/javascript">
+    // const autocolors = window['chartjs-plugin-autocolors'];
+    // const lighten = (color, value) => Chart.helpers.color(color).lighten(value).rgbString();
+
+    // Chart.register(autocolors);
+
+    $(document).on('click','.playbtn', function(){
+        var id = $(this).attr('data-id');
+        $(this).hide();
+        $(this).closest('tr').find('.stopbtn').show();
+        document.getElementById(id).play();
+    })
+    $(document).on('click','.stopbtn', function(){
+        var id = $(this).attr('data-id');
+        $(this).hide();
+        $(this).closest('tr').find('.playbtn').show();
+        document.getElementById(id).pause();
+        document.getElementById(id).currentTime=0;
+    })
+    $(document).on('change','.numberfilter',function(){
+        getChart();
+    })
+    var year = '{{date('Y')}}';
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+    $(function() {
+        $('.js-number-multiple').select2({
+            placeholder: "All Numbers",
+            allowClear: true
+        }).on('change', function (e) {
+            getChart();
+        });
+        $("#datepicker").datepicker({
+            format: "yyyy",
+            viewMode: "years", 
+            minViewMode: "years",
+            autoclose: true
+        }).on('changeDate', function(e) {
+            // console.log(e)
+            year = $("#datepicker").val();
+            getChart();
+            //console.log($("#datepicker").val());
+            // `e` here contains the extra attributes
+        });
+        cb(start, end);
+        // getChart();
+        
+        $('#example_number').DataTable( {
+            "ajax": '{{ route('forwarding.get_all') }}',
+            "processing": true,
+            "serverSide": true,
+            columns: [
+                { data: "created_at" },
+                { data: "phoneNumber" },
+                { data: "friendlyName" },
+                { data: "forward_to" },
+                { data: "recording_status",
+                    "render": function ( data, type, row, meta ) {
+                        var status = '';
+                        if(data == 'true'){
+                            status = 'On';
+                        }else{
+                            status = 'Off';
+                        }
+                        return status;
+                    }
+                },
+                { data: "number_status",
+                    "render": function ( data, type, row, meta ) {
+                        var status = '';
+                        if(data == 'true'){
+                            status = 'Active';
+                        }else{
+                            status = 'Inactive';
+                        }
+                        return status;
+                    }
+                },
+                { data: "id",
+                    "render": function ( data, type, row, meta ) {
+                        var url = '{{ url("/") }}/forwarding/edit/'+data
+                        return `<a class="btn" href="${url}"> <i class="ion ion-edit"></i></a>`
+                    }
+                }
+            ]
+        } );
+        $('.js-example-basic-multiple').select2();
+        
         function cb(start, end) {
+            startdate = start;
+            enddate = start;
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            $('#startDate').val(start.format('YYYY-MM-DD'));
+            $('#endDate').val(end.format('YYYY-MM-DD'));
+            getChart();
         }
 
         $('#reportrange').daterangepicker({
@@ -350,55 +328,168 @@
             }
         }, cb);
 
-        cb(start, end);
+        
 
     });
-    const labels = [10, 20, 30, 40, 50, 60, 70];
-    const data = {
-      labels: labels,
-      datasets: [
-        {
-          label: '(510) xxx xxxx',
-          data: [0, 2, 5, 3, 7, 4, 1],
-          borderWidth: 1,
-          borderColor: 'rgb(75, 192, 192)',
-        },
-        {
-          label: '(212) xxx xxxx',
-          data: [0, 7, 0, 1, 6, 3, 2],
-          borderWidth: 1,
-          borderColor: 'rgba(54, 162, 235, 1)',
+    var datatable = null
+    function getCallDatatabel(){
+        if(datatable){
+            datatable.destroy();
         }
-      ]
-      /* datasets: [{
-        label: 'My First Dataset',
-        data: [0, 2, 5, 3, 7, 4, 1],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-      }] */
-    };
-    const config = {
-      type: 'line',
-      data: data,
-      options: {
-    interaction: {
-      intersect: false,
-      mode: 'index',
-    },
-    plugins: {
-      title: {
-        display: true,
-        text: (ctx) => '14 Calls from Oct 20, 2021 - Nov 19, 2001',
-      },
+        var number = $('#numberfilter').val();
+        var startdate = $('#startDate').val();
+        var enddate  = $('#endDate').val();
+        datatable = $('#example_calllogs').DataTable( {
+            "ajax": {
+                "url": "{{ route('forwarding.get_all_calllogs') }}",
+                "data": {
+                    type:type,
+                    year:year,
+                    startdate: startdate,
+                    enddate: enddate,
+                    number: number
+                }
+              },
+            // "ajax": '{{ route('forwarding.get_all_calllogs') }}',
+            "processing": true,
+            "serverSide": true,
+            columns: [
+                { data: "twilio_number" },
+                { data: "created_at" },
+                { data: "duration",
+                    "render": function ( data, type, row, meta ) {
+                        return `${data}s`;
+                    }
+                },
+                { data: "number" },
+                { data: "voicemail", 
+                    "render": function ( data, type, row, meta ) {
+                        if(data){
+                            var id = row.voicemail_id;
+                            var voicemail = row.voicemail;
+                            return `<button class="btn btn-primary playbtn play${id}>" data-id="${id}"><i class="fa fa-play"></i>
+                                    </button>  
+                                     <button style='display: none' class="btn btn-primary stopbtn stop${id}" data-id="${id}"><i class="fa fa-pause"></i>
+                                    </button>
+                                    <audio class="audiofile" id="${id}" controls hidden="false">
+                                    <source src="${voicemail}.mp3" type="audio/mpeg">
+                                    </audio>
+                                    <a target="_blank" class="btn btn-primary" href="${voicemail}.mp3?Download=true">
+                                        <i class="fa fa-download"></i>
+                                    </a>`;
+                        }else{
+                            return '';
+                        }
+                        //return `<a href="#" class="btn btn-primary"><i class="ion ion-arrow-down-c"></i></a>
+                                //<a href="#" class="btn btn-success"><i class="ion ion-arrow-right-b"></i></a>`;
+                    }
+                    
+                },
+            ]
+        });
     }
-  }
-    };
-    const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
+    function exportData(){
+        var number = $('#numberfilter').val();
+        var startdate = $('#startDate').val();
+        var enddate  = $('#endDate').val();
+        $.ajax({
+            url: '{{route('forwarding.call-log-export')}}',
+            data:{
+                type:type,
+                year:year,
+                startdate: startdate,
+                enddate: enddate,
+                number: number,
+                _token: '{{csrf_token()}}'
+            },
+            dataType:'json',
+            method:'POST',
+            success: function(response){
+                const rows = response;
+                let csvContent = "data:text/csv;charset=utf-8," 
+                + rows.map(e => e.join(",")).join("\n");
 
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "calllogs.csv");
+                document.body.appendChild(link); // Required for FF
+
+                link.click();
+            },error:function(error){
+
+            }
+        })
+    }
+    var type = 'day'
+    $(document).on('change','#dateType',function(){
+        type = $(this).val();
+        if(type =='day' ){
+            $('#datepickerBody').hide();
+            $('#reportrangeBody').show();
+        }else{
+            $('#datepickerBody').show();
+            $('#reportrangeBody').hide();
+        }
+        getChart();
+    });
+    var myChart = false
+    function getChart(){
+        if(myChart){
+            myChart.destroy();
+        }
+        var number = $('#numberfilter').val();
+        var startdate = $('#startDate').val();
+        var enddate  = $('#endDate').val();
+        let config = {
+          type: 'line',
+          data: [],
+          options: {
+            interaction: {
+              intersect: false,
+              mode: 'index',
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: (ctx) => '14 Calls from Oct 20, 2021 - Nov 19, 2001',
+              },
+              autocolors: {
+                customize(context) {
+                  const colors = context.colors;
+                  return {
+                    background: lighten(colors.background, 0.5),
+                    border: lighten(colors.border, 0.5)
+                  };
+                }
+              }
+            }
+          }
+        };
+        getCallDatatabel();
+        $.ajax({
+            url: '{{ route('forwarding.get-call-chart') }}',
+            data:{
+                type:type,
+                year:year,
+                startdate: startdate,
+                enddate: enddate,
+                _token:'{{ csrf_token() }}',
+                number: number
+            },
+            method: 'POST',
+            dataType: 'json',
+            success: function(response){
+                config.data = response;
+                myChart = new Chart(
+                    document.getElementById('myChart'),
+                    config
+                );
+            },error: function(error){
+
+            }
+        })
+    }
     $(document).on('click','#get_numbers',function(){
         $(this).prop('disabled', true)
         $(this).html('Processing');
