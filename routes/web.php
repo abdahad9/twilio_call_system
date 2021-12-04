@@ -158,3 +158,70 @@ Route::get(
    '/mail',
    ['uses' => 'Mail\MailController@mail', 'as' => 'mail']
 );
+
+
+//fv routes
+Route::group(['middleware' => 'auth'], function () {
+    Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
+
+        Route::get('/', [
+            'uses' => 'Forwarding\ForwardingController@index',
+            'as' => 'index',
+        ]);
+        Route::post('/number-status', [
+            'uses' => 'Forwarding\ForwardingController@updateNumberStatus',
+            'as' => 'number-status',
+        ]);
+        Route::post('/get-call-chart', [
+            'uses' => 'Forwarding\ForwardingController@getCallChart',
+            'as' => 'get-call-chart',
+        ]); 
+        Route::post('/call-log-export', [
+            'uses' => 'Forwarding\ForwardingController@logExport',
+            'as' => 'call-log-export',
+        ]); 
+        Route::get('/get_all', [
+            'uses' => 'Forwarding\ForwardingController@get_all',
+            'as' => 'get_all',
+        ]);
+        Route::get('/get_all_calllogs', [
+            'uses' => 'Forwarding\ForwardingController@get_all_calllogs',
+            'as' => 'get_all_calllogs',
+        ]);
+
+        Route::get('/edit/{id}', [
+            'uses' => 'Forwarding\ForwardingController@edit',
+            'as' => 'edit',
+        ]);
+        Route::post('/edit/{id}', [
+            'uses' => 'Forwarding\ForwardingController@update',
+            'as' => 'edit',
+        ]);
+        Route::post('/get-number', [
+            'uses' => 'Forwarding\ForwardingController@getTwilioNumbers',
+            'as' => 'get-number',
+        ]); 
+        Route::post('/purchase-number', [
+            'uses' => 'Forwarding\ForwardingController@purchaseNumbers',
+            'as' => 'purchase-number',
+        ]); 
+          
+    });
+});
+Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
+    Route::post('/call-status',[
+        'uses' => 'Forwarding\ForwardingController@callStatus', 
+        'as' => 'call-status'
+    ]);
+    Route::post('/incomming',[
+        'uses' => 'Forwarding\ForwardingController@incomming', 
+        'as' => 'incomming'
+    ]);
+
+    Route::post('/recording',[
+        'uses' => 'Forwarding\ForwardingController@recording', 
+        'as' => 'recording'
+    ]);
+    
+});
+
