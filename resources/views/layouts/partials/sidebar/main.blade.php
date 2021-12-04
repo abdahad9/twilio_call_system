@@ -101,8 +101,8 @@
             <!--    </ul>-->
             <!--</li>-->
 
-     <li><h3>Call Logs</h3></li>
-            <li class="slide {{ Request::is('calls') ? 'is-expanded' : '' }}">
+     <li><h3>Meetings</h3></li>
+            {{-- <li class="slide {{ Request::is('calls') ? 'is-expanded' : '' }}">
                 <a class="side-menu__item {{ Request::is('calls') ? 'active' : '' }}" data-toggle="slide" href="#">
                 <span class="shape1"></span>
                 <span class="shape2"></span>
@@ -111,6 +111,22 @@
                 <ul class="slide-menu">
                     <li><a href="{{ route('calls.choosenumber') }}" class="slide-item {{ request()->is('calls/choose/number') ? 'active' : '' }}">Call Reports</a></li>
                 </ul>
+            </li> --}}
+            <li class="slide">
+                <a class="side-menu__item"   href="/home">
+                    <span class="shape1"></span>
+                    <span class="shape2"></span>
+                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span class="side-menu__label">Add a Meeting</span>
+                </a>
+            </li>
+            <li class="slide">
+                <a class="side-menu__item"   href="{{ route('calls.choosenumber') }}">
+                    <span class="shape1"></span>
+                    <span class="shape2"></span>
+                    <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    <span class="side-menu__label">Meeting Logs</span>
+                </a>
             </li>
 
             <!-- <li><h3>Data</h3></li>-->

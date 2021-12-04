@@ -25,6 +25,11 @@
                                             </div>
                                         </form>
                                     </div><!-- SEARCH -->
+                                    <div class="col-2 ml-6">
+                                        <a href="/cal">
+                                        <button style="padding:8px" type="button" class="btn btn-lg btn-primary btn-block">Connect Your Calender</button>
+                                        </a>
+                                    </div>
                                     <div class="d-flex order-lg-2 ml-auto">
                                         <a href="#" data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch">
                                             <svg class="header-icon search-icon" x="1008" y="1248" viewBox="0 0 24 24"  height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">

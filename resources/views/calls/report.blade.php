@@ -40,7 +40,7 @@
                                             <div class="card-body">
                                                 <div class="e-table">
                                                     <div class="table-responsive table-lg mt-3">
-                                                        <table class="table table-bordered border-top text-nowrap" id="example1">
+                                                        <table class="table table-bordered border-top text-nowrap" >
                                                             <thead>
                                                                 <tr>
                                                                      <tr>
@@ -78,13 +78,13 @@
                                                                               
                                                                                 <button class="btn btn-primary play-<?=$call->id?><?=$call->recording_sid?>"  onclick="play_recording('{{$call->id}}{{$call->recording_sid}}')"><i class="fa fa-play"></i>
                                                                                 </button>
-                                                                                    <a target="_blank" class="btn btn-primary" href="https://api.twilio.com/2010-04-01/Accounts/<?=config('twilio.sid')?>/Recordings/<?=$call->recording_sid?>.mp3?Download=true">
+                                                                                    <a target="_blank" class="btn btn-primary" href="https://api.twilio.com/2010-04-01/Accounts/<?=config('services.twilio')['accountSid']?>/Recordings/<?=$call->recording_sid?>.mp3?Download=true">
                                                                                     <i class="fa fa-download"></i>
                                                                                 </a>
                                                                                  <button style='display: none' class="btn btn-primary stop-<?=$call->id?><?=$call->recording_sid?>" onclick="stop_recording('<?=$call->id?><?=$call->recording_sid?>')"><i class="fa fa-pause"></i>
                                                                                 </button>
                                                                                 <audio id="<?=$call->id?><?=$call->recording_sid?>" controls hidden="false">
-                                                                                <source src="https://api.twilio.com/2010-04-01/Accounts/<?=config('twilio.sid')?>/Recordings/<?=$call->recording_sid?>.mp3" type="audio/mpeg">
+                                                                                <source src="https://api.twilio.com/2010-04-01/Accounts/<?=config('services.twilio')['accountSid']?>/Recordings/<?=$call->recording_sid?>.mp3" type="audio/mpeg">
                                                                                 </audio>
                                                                          
                                                                             @else { 

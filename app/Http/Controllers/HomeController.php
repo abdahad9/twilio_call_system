@@ -12,8 +12,8 @@ class HomeController extends Controller
     function __construct()
     {
         // $this->middleware(['owner']);
-            $sid = config('twilio.sid');
-            $token = config('twilio.token');
+            $sid = config('services.twilio')['accountSid'];
+            $token = '31b5ccf8aa1cca5177b956c54d4cfb4b';
             $this->twilio = new Client($sid, $token);
     }
 
