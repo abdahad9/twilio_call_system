@@ -127,44 +127,39 @@ class ForwardingController extends Controller
         return back();
     }
 
-    public function logExport(Request $request)
+    public function commonCallLog($request)
     {
         $end = date('Y-m-d', strtotime($request->enddate . ' +1 day'));
 
         if($request->number){
-            $logsData = CallForwardLog::whereIn('twilio_number',$request->number);
+            $logsData = CallForwardLog::whereIn('twilio_number',$request->number)->latest('call_forward_logs.created_at');
         }else{
-            $logsData = CallForwardLog::where('id','<>',0);
+            $logsData = CallForwardLog::latest('call_forward_logs.created_at');
         }
         if($request->type == 'month'){
-            $logsData = $logsData->whereYear('created_at', $request->year);
+            $logsData = $logsData->whereYear('call_forward_logs.created_at', $request->year);
         }else{
-            $logsData = $logsData->whereBetween('created_at', [$request->startdate, $end]);
+            $logsData = $logsData->whereBetween('call_forward_logs.created_at', [$request->startdate, $end]);
         }
+        return $logsData->with('call_forward_number')->select('call_forward_logs.*');
+    }
+
+    public function logExport(Request $request)
+    {
+        $logsData = $this->commonCallLog($request);
         $results = $logsData->get();
         $data = [];
         $data[] = array('Sr. No.','Tracking Number','Start Timer','Duration','Contact');
         $i = 1;
         foreach($results as $call){
-            $data[] = [$i++, $call->twilio_number,  $call->created_at, $call->duration.'s',$call->number ];
+            $data[] = [$i++, $call->call_forward_number->friendlyName,  $call->created_at, $call->duration.'s',$call->number ];
         }
         return response()->json($data);
     }
 
     public function get_all_calllogs(Request $request)
     {   
-        $end = date('Y-m-d', strtotime($request->enddate . ' +1 day'));
-
-        if($request->number){
-            $logsData = CallForwardLog::whereIn('twilio_number',$request->number);
-        }else{
-            $logsData = CallForwardLog::where('id','<>',0);
-        }
-        if($request->type == 'month'){
-            $logsData = $logsData->whereYear('created_at', $request->year);
-        }else{
-            $logsData = $logsData->whereBetween('created_at', [$request->startdate, $end]);
-        }
+        $logsData = $this->commonCallLog($request);
         return datatables($logsData)->toJson();
     }
 
@@ -176,7 +171,7 @@ class ForwardingController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+        //dd($request->all());
         $twilio_number = CallForwardNumber::find($id);
         $arrUpdate = [
             'friendlyName' => $request->friendlyName
@@ -187,6 +182,7 @@ class ForwardingController extends Controller
             $twilio_number->number_of_ring = $request->number_of_ring;
             // if else condition
             if($request->recording_status && $request->recording_status == 'on'){
+                // dd($request->recording_status);
                 $twilio_number->recording_status = 'true';
                 $twilio_number->forward_to = $request->forward_to;
             }else{
@@ -267,17 +263,18 @@ class ForwardingController extends Controller
             $response = new VoiceResponse();
             
             if($findNumber && $findNumber->number_status == 'true'){
-                if($findNumber->whisper_message){
+                /* if($findNumber->whisper_message){
                     $response->say($findNumber->whisper_message);
-                }
+                } */
                 if($findNumber->number_of_ring){
                     $timeout = (( 5 * $findNumber->number_of_ring ) - 5);
                 }else{
                     $timeout = 10;
                 }
                 if($findNumber->forward_to){
-                    $response->dial('+1'.$findNumber->forward_to, ['action' => url('forwarding/call-status?call_action=true'), 'method' => 'POST', 'timeout' => $timeout]);
+                    $response->dial('+1'.$findNumber->forward_to, ['action' => url('forwarding/call-status?call_action=true'), 'method' => 'POST', 'timeout' => $timeout, 'record' => 'record-from-ringing-dual' , 'recordingStatusCallback' => url('forwarding/recording?call_action=recording') ]);
                 }
+                //url('forwarding/recording?call_action=voicemail')
             }
             return response($response, 200)->header('Content-Type', 'text/xml');
         }else{
@@ -335,6 +332,9 @@ class ForwardingController extends Controller
             $call->save();
         }else{
             // call status code
+            $call->recording_sid = $request->RecordingSid;
+            $call->recording = $request->RecordingUrl;
+            $call->save();
         }
         return response($response, 200)->header('Content-Type', 'text/xml');
     }

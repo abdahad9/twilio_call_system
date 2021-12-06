@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TwilioPhoneNumbers;
 use Twilio\Rest\Client;
+use App\Models\CallForwardNumber;
 
 class HomeController extends Controller
 {
@@ -43,6 +44,10 @@ class HomeController extends Controller
                 $number->save();
             }
         }
-        return view('home',compact('phoneNumbers'));
+        $data['forwardNumbers'] = CallForwardNumber::pluck('phoneNumber')->toArray();
+        // dd($data['forwardNumbers']);
+        $data['phoneNumbers'] = $phoneNumbers;
+        return view('home',$data);
+        // return view('home',compact('phoneNumbers'));
     }
 }

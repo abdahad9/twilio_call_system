@@ -114,31 +114,31 @@
                                                     <div class="col-md-6 bg-light">
                                                         <div class="d-flex align-items-start flex-column bd-highlight pt-2">
                                                           <div class="pb-2 bd-highlight">
-                                                                <h6>This numebr</h6>
-                                                                <p class="pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                                <h6>Number Nickname</h6>
+                                                                <p class="pl-3">This is the name assigned to this specific number. Choose whatever you want, but something brief and easy to remember is best. Most of the time this will be a campaign name or a website or a company name.</p>
                                                           </div>
                                                           <div class="pb-2 bd-highlight">
                                                                 <h6>Call Destination</h6>
-                                                                <p class="pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                                <p class="pl-3">This is the number where your calls will be forwarded. You can use your main business line, your personal line, or any other existing phone number you own.
+                                                                    <br>
+                                                                You can also create a custom call flow to route calls within your organization.
+                                                                </p>
                                                             </div>
 
                                                             <div class="pb-2 bd-highlight">
                                                                     <h6>Whisper Message</h6>
-                                                                    <p class="pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                                    <p class="pl-3">A "Whisper Message" is a short recording that plays to the recipient before a forwarded call is connected. It's a good way for the recipient to know where the call is coming from. The caller cannot hear this message.</p>
                                                             </div>
                                                             <div class="pb-2 bd-highlight">
                                                                     <h6>Call Recording</h6>
-                                                                    <p class="pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                                    <p class="pl-3">You can record incoming phone calls and replay them from your dashboard.</p>
                                                             </div>
                                                             <div class="pb-2 bd-highlight">
-                                                                    <h6>Call Greeting</h6>
-                                                                    <p class="pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                                                    <h6>Voice Mail</h6>
+                                                                    <p class="pl-3">Choose how many rings before your callers goes to your voicemail. Be sure to test this as different companies have differing amounts of rings before sending calls to voicemail. </p>
                                                             </div>
 
-                                                            <div class="pb-2 bd-highlight">
-                                                                    <h6>Campaign Name</h6>
-                                                                    <p class="pl-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                                            </div>
+                                                            
 
                                                         </div>
 
@@ -169,21 +169,6 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    $(document).on('change','#recording_status', function(){
-        if (this.checked) {
-            $('#forward_body').show();
-            //alert('checked');
-        }else{
-            $('#forward_body').hide();
-        }
-    });
-
-    $(function(){
-        if($('#recording_status').is(':checked')){
-            $('#forward_body').show();
-        }else{
-            $('#forward_body').hide();
-        }
-    })
+    
 </script>
 @stop

@@ -86,8 +86,9 @@
                                                                             <th>Tracking Number</th>
                                                                             <th>Start Timer</th>
                                                                             <th>Duration</th>
-                                                                            <th>Contact</th>
-                                                                            <th>Download Recording</th>
+                                                                            <th>From Number</th>
+                                                                            <th>Voicemail</th>
+                                                                            <th>Recording</th>
                                                                             
                                                                         </tr>
                                                                     </thead>
@@ -237,6 +238,19 @@
         document.getElementById(id).pause();
         document.getElementById(id).currentTime=0;
     })
+    $(document).on('click','.playbtn1', function(){
+        var id = $(this).attr('data-id');
+        $(this).hide();
+        $(this).closest('tr').find('.stopbtn1').show();
+        document.getElementById(id).play();
+    })
+    $(document).on('click','.stopbtn1', function(){
+        var id = $(this).attr('data-id');
+        $(this).hide();
+        $(this).closest('tr').find('.playbtn1').show();
+        document.getElementById(id).pause();
+        document.getElementById(id).currentTime=0;
+    })
     $(document).on('change','.numberfilter',function(){
         getChart();
     })
@@ -354,7 +368,7 @@
             "processing": true,
             "serverSide": true,
             columns: [
-                { data: "twilio_number" },
+                { data: "call_forward_number.friendlyName" },
                 { data: "created_at" },
                 { data: "duration",
                     "render": function ( data, type, row, meta ) {
@@ -382,6 +396,27 @@
                         }
                         //return `<a href="#" class="btn btn-primary"><i class="ion ion-arrow-down-c"></i></a>
                                 //<a href="#" class="btn btn-success"><i class="ion ion-arrow-right-b"></i></a>`;
+                    }
+                    
+                },
+                { data: "recording", 
+                    "render": function ( data, type, row, meta ) {
+                        if(data){
+                            var id = row.recording_sid;
+                            var voicemail = row.recording;
+                            return `<button class="btn btn-primary playbtn1 play${id}>" data-id="${id}"><i class="fa fa-play"></i>
+                                    </button>  
+                                     <button style='display: none' class="btn btn-primary stopbtn1 stop${id}" data-id="${id}"><i class="fa fa-pause"></i>
+                                    </button>
+                                    <audio class="audiofile" id="${id}" controls hidden="false">
+                                    <source src="${voicemail}.mp3" type="audio/mpeg">
+                                    </audio>
+                                    <a target="_blank" class="btn btn-primary" href="${voicemail}.mp3?Download=true">
+                                        <i class="fa fa-download"></i>
+                                    </a>`;
+                        }else{
+                            return '';
+                        }
                     }
                     
                 },
