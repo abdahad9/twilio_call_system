@@ -222,6 +222,11 @@ Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
         'uses' => 'Forwarding\ForwardingController@recording', 
         'as' => 'recording'
     ]);
+
+    /* Route::get('/send-email',[
+        'uses' => 'Forwarding\ForwardingController@sendEmail', 
+        'as' => 'send-email'
+    ]); */
     
 });
 

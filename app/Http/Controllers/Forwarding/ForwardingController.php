@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\CallForwardLog;
 use Yajra\Datatables\Facades\Datatables;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class ForwardingController extends Controller
 {
@@ -330,6 +331,21 @@ class ForwardingController extends Controller
             $call->voicemail_id = $request->RecordingSid;
             $call->voicemail = $request->RecordingUrl;
             $call->save();
+
+            try{
+                $mail_to = config('mail.to');
+                // $call = CallForwardLog::where('call_sid', 'CAef6acb215c8435a5993932599bcf64d2')->first();
+                $details = [
+                    'CallDuration' => $call->duration,
+                    'phonenumber' => $call->number,
+                    'datetime' => $call->created_at,
+                    'sid' => $call->call_sid
+                ];
+                Mail::to($mail_to)->send(new \App\Mail\Callforward($details));
+            
+            }catch(\Throwable $e){
+                // dd($e);
+            }
         }else{
             // call status code
             $call->recording_sid = $request->RecordingSid;
