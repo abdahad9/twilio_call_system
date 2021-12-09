@@ -26,7 +26,15 @@
                                     <div class="col-12 mb-3">
                                         <div class="e-panel card">
                                             <div class="card-header bg-light border-bottom">
-                                                <h2>{{$twilio_number->friendlyName}} ({{$twilio_number->phoneNumber}})</h2>
+                                                <div class="d-flex justify-content-between" style="width:100%">
+                                                    <div>
+                                                        <h2>{{$twilio_number->friendlyName}} ({{$twilio_number->phoneNumber}})</h2>
+                                                    </div>
+                                                    <div>
+                                                        <a class="btn btn-primary" href="{{ route('forwarding.index') }}">Back</a>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                             <div class="card-body pb-0">
                                                 <div class="d-flex justify-content-between">

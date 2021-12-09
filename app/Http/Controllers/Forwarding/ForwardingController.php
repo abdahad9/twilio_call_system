@@ -264,18 +264,37 @@ class ForwardingController extends Controller
             $response = new VoiceResponse();
             
             if($findNumber && $findNumber->number_status == 'true'){
-                /* if($findNumber->whisper_message){
-                    $response->say($findNumber->whisper_message);
-                } */
+                /* */
                 if($findNumber->number_of_ring){
                     $timeout = (( 5 * $findNumber->number_of_ring ) - 5);
                 }else{
                     $timeout = 10;
                 }
                 if($findNumber->forward_to){
-                    $response->dial('+1'.$findNumber->forward_to, ['action' => url('forwarding/call-status?call_action=true'), 'method' => 'POST', 'timeout' => $timeout, 'record' => 'record-from-ringing-dual' , 'recordingStatusCallback' => url('forwarding/recording?call_action=recording') ]);
+                    $arrDial = [
+                        'action' => url('forwarding/call-status?call_action=true'), 
+                        'method' => 'POST', 
+                        'timeout' => $timeout, 
+                    ];
+                    if($findNumber->recording_status && $findNumber->recording_status == 'true'){
+                        $arrDial['record'] = 'record-from-ringing-dual';
+                        $arrDial['recordingStatusCallback'] = url('forwarding/recording?call_action=recording');
+                    }
+                    if($findNumber->whisper_message){
+                        $response->say($findNumber->whisper_message);
+                    }
+                    $response->dial('+1'.$findNumber->forward_to, $arrDial);
+                }else{
+                    if($findNumber && $findNumber->voicemail){
+                        $response->play(asset($findNumber->voicemail));
+                    }else{
+                        $response->say('Please leave a message at the beep.Press the star key when finished.');
+                    }   
+                    $response->record([
+                        'action' => url('forwarding/recording?call_action=voicemail'),
+                        'method' => 'POST', 'finishOnKey' => '*'
+                    ]);
                 }
-                //url('forwarding/recording?call_action=voicemail')
             }
             return response($response, 200)->header('Content-Type', 'text/xml');
         }else{
