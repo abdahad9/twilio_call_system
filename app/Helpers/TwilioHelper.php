@@ -81,4 +81,18 @@ class TwilioHelper {
 			return false;
 		}
 	}
+
+	public function getCallData($callsid)
+	{
+		try {
+			$sid = config('twilio.sid');
+            $token = config('twilio.token');
+			$twilio = new Client($sid, $token);
+			$call = $twilio->calls($callsid)
+               ->fetch();
+            return $call->duration;
+        } catch (\Exception $e) {
+			return false;
+		}
+	}
 }

@@ -28,7 +28,7 @@ class Callforward extends Mailable
      */
     public function build()
     {
-        return $this->subject('New Voicemail Call')
+        return $this->subject('New Voicemail Call from '.$this->details['f_name'].' ')
         ->view('mail.callForward');
         //return $this->view('view.name');
     }

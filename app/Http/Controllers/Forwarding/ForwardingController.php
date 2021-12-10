@@ -182,13 +182,16 @@ class ForwardingController extends Controller
             $twilio_number->friendlyName = $request->friendlyName;
             $twilio_number->number_of_ring = $request->number_of_ring;
             // if else condition
+            if($request->forward_to){
+                $twilio_number->forward_to = $request->forward_to;
+            }
             if($request->recording_status && $request->recording_status == 'on'){
                 // dd($request->recording_status);
                 $twilio_number->recording_status = 'true';
-                $twilio_number->forward_to = $request->forward_to;
+                
             }else{
                 $twilio_number->recording_status = 'false';
-                $twilio_number->forward_to = null;
+                // $twilio_number->forward_to = null;
             }
             $twilio_number->whisper_message = $request->whisper_message;
             if($request->file('voicemail')){
@@ -274,7 +277,7 @@ class ForwardingController extends Controller
                     $arrDial = [
                         'action' => url('forwarding/call-status?call_action=true'), 
                         'method' => 'POST', 
-                        'timeout' => $timeout, 
+                        'timeout' => $timeout
                     ];
                     if($findNumber->recording_status && $findNumber->recording_status == 'true'){
                         $arrDial['record'] = 'record-from-ringing-dual';
@@ -305,6 +308,8 @@ class ForwardingController extends Controller
 
     public function callStatus(Request $request)
     {
+        Log::info('Call status.', ['id' => $request->all()]);
+        $response = new VoiceResponse();
         $call = CallForwardLog::where('call_sid', $request->CallSid)->first();
         if($call){
             if($request->CallStatus){
@@ -320,51 +325,61 @@ class ForwardingController extends Controller
             }
             $call->save();
         }
-        // Log::info('Call Status.', ['id' => $request->all()]);
-        $response = new VoiceResponse();
-        if($request->call_action && $request->call_action == 'true'){
-            if($request->DialCallStatus == 'busy' || $request->DialCallStatus == 'no-answer'){
-                $findNumber = CallForwardNumber::where('phoneNumber',$request->To)->first();
-                if($findNumber && $findNumber->voicemail){
-                    $response->play(asset($findNumber->voicemail));
-                }else{
-                    $response->say('Please leave a message at the beep.Press the star key when finished.');
-                }   
-                $response->record(['action' => url('forwarding/recording?call_action=voicemail'),
-                    'method' => 'POST', 'finishOnKey' => '*']);
+        if($request->call_action){
+            if($request->call_action && $request->call_action == 'true'){
+                if($request->DialCallStatus == 'busy' || $request->DialCallStatus == 'no-answer'){
+                    $findNumber = CallForwardNumber::where('phoneNumber',$request->To)->first();
+                    if($findNumber && $findNumber->voicemail){
+                        $response->play(asset($findNumber->voicemail));
+                    }else{
+                        $response->say('Please leave a message at the beep.Press the star key when finished.');
+                    }   
+                    $response->record(['action' => url('forwarding/recording?call_action=voicemail'),
+                        'method' => 'POST', 'finishOnKey' => '*']);
+                }
+            }else if($request->call_action && $request->call_action == 'voicemail'){
+                // voice mail code 
+            }else{
+                // call status code
             }
-        }else if($request->call_action && $request->call_action == 'voicemail'){
-            // voice mail code 
         }else{
-            // call status code
+            if($call && $call->voicemail){
+                try{
+                    $mail_to = config('mail.to');
+                    $details = [
+                        'CallDuration' => $call->duration,
+                        'phonenumber' => $call->number,
+                        'datetime' => $call->created_at,
+                        'sid' => $call->call_sid, 
+                        'f_name' => $call->call_forward_number->friendlyName,
+                        'status' => $call->status,
+                        'phonenumber' => $call->twilio_number,
+                        'caller' => $call->number
+                    ];
+                    // dd($details);
+                    // $mail_to = 'fvthakor11@gmail.com';
+                    Mail::to($mail_to)->send(new \App\Mail\Callforward($details));
+                
+                }catch(\Throwable $e){
+                    Log::info('Call status.', ['id' => $e->getMessage()]);
+                    // dd($e);
+                }
+            }
         }
+        
+        
         return response($response, 200)->header('Content-Type', 'text/xml');
     }
 
     public function recording(Request $request)
     {
-        // Log::info('Call recording.', ['id' => $request->all()]);
-        $call = CallForwardLog::where('call_sid', $request->CallSid)->first();
+        Log::info('Call recording.', ['id' => $request->all()]);
+        $call = CallForwardLog::where('call_sid', $request->CallSid)->with('call_forward_number')->first();
         $response = new VoiceResponse();
         if($request->call_action && $request->call_action == 'voicemail'){
             $call->voicemail_id = $request->RecordingSid;
             $call->voicemail = $request->RecordingUrl;
             $call->save();
-
-            try{
-                $mail_to = config('mail.to');
-                // $call = CallForwardLog::where('call_sid', 'CAef6acb215c8435a5993932599bcf64d2')->first();
-                $details = [
-                    'CallDuration' => $call->duration,
-                    'phonenumber' => $call->number,
-                    'datetime' => $call->created_at,
-                    'sid' => $call->call_sid
-                ];
-                Mail::to($mail_to)->send(new \App\Mail\Callforward($details));
-            
-            }catch(\Throwable $e){
-                // dd($e);
-            }
         }else{
             // call status code
             $call->recording_sid = $request->RecordingSid;
