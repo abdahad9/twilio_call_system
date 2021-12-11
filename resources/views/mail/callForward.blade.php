@@ -1,172 +1,462 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>ItsolutionStuff.com</title>
 
-            <style type="text/css">
-            .container{
-                width: 95%;
-                margin: auto;
-            }
-            .card{
-                font-size: 16px;
-            }
-            .header{
-                color: green;
-                margin-left: 15px;
-            }
-            .mail-logo{
-                    height: 48px !important;
-            }
-            .mail-logo-border{
-                    margin-top: 10px;
-                    border-bottom: 8px solid darkblue;
-            }
-            .text-heading{
-                font-weight: 700;
-                color: black;
-            }
-            .flex{
-                display: flex;
-            }
-            .space{
-                margin-left: 25px;
-            }
-            .text{
-                margin-left:5px;
-            }
-            .footer{
-                background: darkblue;
-                padding: 35px 20px;
-                margin-top: 20px;
-            }
-            .footer-text{
-                color: white;              
-            }
-            p{
-                margin: 0px 1px 10px 0px;
-            }
-            .footer-logo{
-                text-align: right;
-                margin-right: 30px;
-            }
-            .margin-right{
-                margin-right: 8px;
-            }
-            @media only screen and (max-width: 450px) {
-            .flex-non {
-                display: block !important;
-            }
-            .space {
-                margin-left: 0px;
-            }
-            .center-text{
-                margin-top: -5px;
-            }
-            .bottom{
-                margin-bottom: 4px;
-            }
-            .top{
-                margin-top: 10px;
-            }
-            .footer {
-                padding: 10px 14px;   
-            }
-            .font{
-                font-size: 12px;
-            }
-            }
-            </style>
+    <!doctype html>
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+      <head>
+        <title>
+          
+        </title>
+        <!--[if !mso]><!-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--<![endif]-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style type="text/css">
+          #outlook a { padding:0; }
+          body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%; }
+          table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt; }
+          img { border:0;height:auto;line-height:100%; outline:none;text-decoration:none;-ms-interpolation-mode:bicubic; }
+          p { display:block;margin:13px 0; }
+        </style>
+        <!--[if mso]>
+        <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+        </xml>
+        <![endif]-->
+        <!--[if lte mso 11]>
+        <style type="text/css">
+          .mj-outlook-group-fix { width:100% !important; }
+        </style>
+        <![endif]-->
+        
+      <!--[if !mso]><!-->
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
+        <style type="text/css">
+          @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
+        </style>
+      <!--<![endif]-->
+
+    
+        
+    <style type="text/css">
+      @media only screen and (min-width:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }
+    </style>
+    
+  
+        <style type="text/css">
+        
+        
+
+    @media only screen and (max-width:480px) {
+      table.mj-full-width-mobile { width: 100% !important; }
+      td.mj-full-width-mobile { width: auto !important; }
+    }
+  
+        </style>
+        
+        
+      </head>
+      <body style="word-spacing:normal;background-color:#eeeeee;">
+        
+        
+      <div
+         style="background-color:#eeeeee;"
+      >
+        
+      
+      <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div  style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
+        
+        <table
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;padding-top:0px;text-align:center;"
+              >
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
             
-</head>
+      <div
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
+      >
+        
+      <table
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                >
+                  
+      <table
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;"
+      >
+        <tbody>
+          <tr>
+            <td  style="width:100px;">
+              
+      <img
+         alt="company name" height="auto" src="https://via.placeholder.com/100
 
-<body>
-<div class="container">
-
-    {{-- <img src="{{ asset('storage/1DashPro-Logo-Final.png') }}" class="header-brand-img desktop-lgo mail-logo" alt="Covido logo"> --}}
- 	<!--Page header-->
-    <div class="mail-logo-border"></div>
-
-    <div class="card">
-        {{-- <h4 class="header">Hi David Moceri,</h4> --}}
-    <div class="card-body">
-        <div class="flex flex-non">
-            <div class="flex">
-                <p class="text-heading">Phone call :</p>
-                <p class="text">{{ $details['phonenumber'] }}</p>
-            </div>
-            <div class="flex">
-                <p class="text-heading space">Duration :</p>
-                <p class="text">
-                @if ($details['CallDuration'])
-                <?php 
-                $duration = $details['CallDuration'];
-                $dtF = new \DateTime('@0');
-                $dtT = new \DateTime("@$duration");
-                echo $dtF->diff($dtT)->format('%i minutes %s seconds');
-                ?>      
+C/O https://placeholder.com/" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="100"
+      />
+    
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+                </td>
+              </tr>
+            
+              <tr>
+                <td
+                   align="center" style="font-size:0px;padding:10px 25px;padding-top:20px;word-break:break-word;"
+                >
+                  
+      <div
+         style="font-family:Tahoma;font-size:24px;font-weight:bold;line-height:1;text-align:center;color:#404145;"
+      >Note Taker Pro</div>
+    
+                </td>
+              </tr>
+            
+              <tr>
+                <td
+                   align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                >
+                  
+      <div
+         style="font-family:Tahoma;font-size:16px;font-weight:bold;line-height:1.5;text-align:center;color:#404145;"
+      >Missed Call or VM<br>
+  Received a New Call - Tue, June 30, 2020 5:30 pm</div>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div  style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
+        
+        <table
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style="direction:ltr;font-size:0px;padding:20px 0;padding-top:0px;text-align:center;"
+              >
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+            
+      <div
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
+      >
+        
+      <table
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;"
+                >
+                  
+      <table
+         cellpadding="0" cellspacing="0" width="200" border="0" style="color:#000000;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;table-layout:auto;width:200px;border:none;"
+      >
+        <tr>
+         
+           <td style="text-align: center;"><img width="32px" src="https://i.imgur.com/2pODpc6.png"></td>
+             <td style="text-align: center;"><img width="32px" src="https://i.imgur.com/sW1UrVb.png"></td>
+                <td style="text-align: center;"><img width="32px" src="https://i.imgur.com/Rv0JDi0.png"></td>
+         
+         </tr>
+         <tr>
+         
+           <td style="font-family: Tahoma; font-weight: bold; font-size: 14px;text-align: center;">Sound</td>
+             <td style="font-family: Tahoma; font-weight: bold;font-size: 14px;text-align: center;">Search</td>
+                <td style="font-family: Tahoma; font-weight: bold;font-size: 14px;text-align: center;">Call Back</td>
+         
+         </tr>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div  style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
+        
+        <table
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style="direction:ltr;font-size:0px;padding:20px 0;padding-left:15px;padding-right:15px;padding-top:0px;text-align:center;"
+              >
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:570px;" ><![endif]-->
+            
+      <div
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
+      >
+        
+      <table
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="border:1px solid #dfdfdf;vertical-align:top;" width="100%"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align="left" style="background:#ffffff;font-size:0px;padding:10px 25px;padding-top:5px;padding-right:10px;padding-bottom:15px;padding-left:10px;word-break:break-word;"
+                >
+                  
+      <table
+         cellpadding="0" cellspacing="0" width="100%" border="0" style="color:#404145;font-family:Tahoma;font-size:15px;line-height:1.8;table-layout:auto;width:100%;border:none;"
+      >
+        <tr style="background-color: #fff">
+           <td style="font-weight: bold;font-size: 18px; padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+          Activity: 
+           </td>
+           <td style="padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+           &nbsp;
+           </td>
+         </tr>  
+         
+          <tr style="border-top: 1px solid #dfdfdf; background-color: #F1F1F1;">
+           <td style="padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+           Date/Time
+           </td>
+           <td style="white-space: nowrap;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+           <!-- Jun 30 - 5:30 pm -->{{$details['datetime']}}
+           </td>
+         </tr>
+         
+         <!-- <tr style="background-color: #fff">
+           <td style="padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+           Ring Time
+           </td>
+           <td style="white-space: nowrap;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+           00:20
+           </td>
+         </tr>   -->
+         
+          <tr style="border-top: 1px solid #dfdfdf; background-color: #F1F1F1;">
+           <td style="padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+           Talk Time
+           </td>
+           <td style="white-space: nowrap;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+                @if(isset($details['CallDuration']))
+                    <?php 
+                    $duration = $details['CallDuration'];
+                    $dtF = new \DateTime('@0');
+                    $dtT = new \DateTime("@$duration");
+                    echo $dtF->diff($dtT)->format('%i minutes %s seconds');
+                    ?> 
                 @endif
-                </p>
-            </div>
-        </div>
+           </td>
+         </tr>  
+         
+         <!-- <tr style="border-top: 1px solid #dfdfdf; background-color: #fff">
+           <td style="padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+          Total Time
+           </td>
+           <td style="white-space: nowrap;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+          01:20
+           </td>
+         </tr>  --> 
+         
+         <tr style="border-top: 1px solid #dfdfdf;  background-color: #F1F1F1;">
+           <td style="padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+          Status
+           </td>
+           <td style="white-space: nowrap;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+                @if(isset($details['status']))
+                    {{$details['status']}}
+                @endif
+           </td>
+         </tr>  
+         
+          <tr style="background-color: #fff">
+           <td style="padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+            Tracking Number
+           </td>
+           <td style="white-space: nowrap;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+            {{$details['phonenumber']}}
+           </td>
+         </tr>
+          <tr style="border-top: 1px solid #dfdfdf;  background-color: #F1F1F1;">
+           <td style=";padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+           Friendly Name
+           </td>
+           <td style="white-space: nowrap;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+            {{$details['f_name']}}
+           </td>
+         </tr>            
+          <tr style="border-top: 1px solid #dfdfdf; background-color: #fff">
+           <td style="padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+            Caller Number
+           </td>
+           <td style="white-space: nowrap;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+                @if(isset($details['caller']))
+                    {{$details['caller']}}
+                @endif
+           </td>
+         </tr> 
+        <tr style="white-space: nowrap;border-top: 1px solid #dfdfdf; background-color: #fff">
+           <td style="background-color: #F1F1F1;padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
+         Call recording
 
-            <div class="flex flex-non">
-            <p class="text-heading">Call Date & time:</p>
-            <p class="text center-text">
-                <?php 
-                $datetime = $details['datetime'];
-                echo $datetime;
-                // $tz = new DateTimeZone('America/Los_Angeles');  
-                // $saleEndDate = new DateTime($datetime->format('Y/m/d H:i:s'));
-                // $saleEndDate->setTimezone($tz);
-                // $stamp = $saleEndDate->format('U');
-                // $zone = $tz->getTransitions($stamp, $stamp);
-                // if(!$zone[0]['isdst']) $saleEndDate->modify('+1 hour');
-                // echo $saleEndDate->format('m/d/Y');
-                // echo '<br>';
-                // echo $saleEndDate->format('H:i:s');
-                // ?>
-            </p>
-            </div>
-            <?php 
-            $count =0;
-            $sid = config('twilio.sid');
-                    $token = config('twilio.token');
-                    $twilio = new \Twilio\Rest\Client($sid, $token);
+           </td>
+           <td style="white-space: nowrap;background-color: #F1F1F1;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
+          <?php 
+                $count =0;
+                $sid = config('twilio.sid');
+                        $token = config('twilio.token');
+                        $twilio = new \Twilio\Rest\Client($sid, $token);
 
-                    $recordings = $twilio->recordings
-                                                ->read(["callSid" => $details['sid']],
-                                                        20
-                                                );
-                   foreach ($recordings as $record) {
-                        $call_recording = $record->sid;
-                    }
+                        $recordings = $twilio->recordings
+                                                    ->read(["callSid" => $details['sid']],
+                                                            20
+                                                    );
+                       foreach ($recordings as $record) {
+                            $call_recording = $record->sid;
+                        }
 
-                           $count++;
-            ?>
+                               $count++;
+                ?>
 
-            <div class="flex flex-non">
-                <p class="text-heading margin-right">Call recording:</p>
-                {{-- <a style="color: red" href="" >Click to download the Call recording</a> --}}
-            <?php if (isset($call_recording)){?>
-                <a class="center-text" style="color: red" href="https://api.twilio.com/2010-04-01/Accounts/<?=config('twilio.sid')?>/Recordings/<?=$call_recording?>.mp3?Download=true" >Click to Download the Call recording</a>
-            <?php }
-            else { 
-            ?>
-                <p class="center-text">No call recording availible for this call</p>
-            <?php  } ?>
-            </div>
 
-        </div>
-
-    </div>    
-</div>
-        <!--End Page header-->
-    {{-- <h1>{{ $details['title'] }}</h1>
-    <p>{{ $details['body'] }}</p> --}}
-   
-
-</body>
-
-</html>
+                  Call recording: <?php if (isset($call_recording)){?>
+                    <a class="center-text" style="color: red" href="https://api.twilio.com/2010-04-01/Accounts/<?=config('twilio.sid')?>/Recordings/<?=$call_recording?>.mp3?Download=true" >Click to Download the Call recording</a>
+                    <?php } ?>
+           </td>
+         </tr>
+      </table>
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
+    
+      
+      <div  style="background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:600px;">
+        
+        <table
+           align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;background-color:#ffffff;width:100%;"
+        >
+          <tbody>
+            <tr>
+              <td
+                 style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:0px;padding-top:10px;text-align:center;"
+              >
+                <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
+            
+      <div
+         class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;"
+      >
+        
+      <table
+         border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%"
+      >
+        <tbody>
+          
+              <tr>
+                <td
+                   align="center" style="font-size:0px;padding:10px 25px;padding-bottom:0px;word-break:break-word;"
+                >
+                  
+      <div
+         style="font-family:Poppins,sans-serif;font-size:12px;font-weight:400;line-height:1.2;text-align:center;color:#889198;"
+      >Online: Support Center | <a style="text-decoration: none; color: inherit;" href="mailto:support@notetakerpro.com">support@notetakerpro.com</a></div>
+    
+                </td>
+              </tr>
+            
+              <tr>
+                <td
+                   align="center" style="font-size:0px;padding:10px 25px;padding-top:5px;padding-bottom:5px;word-break:break-word;"
+                >
+      {{--<div
+         style="font-family:Poppins,sans-serif;font-size:12px;font-weight:400;line-height:1.5;text-align:center;color:#889198;"
+      >You're receiving this email because you're subscribed to call notifications for Note Taker Pro. You can <a style="color:#889198;text-decoration: none;" href="{{{unsubscribe}}}">Unsubscribe</a> from these alerts.</div> --}}
+    
+                </td>
+              </tr>
+            
+        </tbody>
+      </table>
+    
+      </div>
+    
+          <!--[if mso | IE]></td></tr></table><![endif]-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+    
+      
+      <!--[if mso | IE]></td></tr></table><![endif]-->
+    
+    
+      </div>
+    
+      </body>
+    </html>
+  

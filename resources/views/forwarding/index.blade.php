@@ -146,7 +146,7 @@
                                                                                         <label>Type</label>
                                                                                         <select class="form-control" name="type" id="number_type">
                                                                                             <option value="local">Local</option>
-                                                                                            <option value="tollfree">Tollfree</option>
+                                                                                            <option value="tollfree">Toll Free</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -168,7 +168,7 @@
                                                                                 <div class="col-md-12">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label">Choose number <span class="text-red">*</span></label>
-                                                                                        <select id="addnumber" name="addnumber[]" class="form-control custom-select select2 js-example-basic-multiple" required multiple="multiple">
+                                                                                        <select id="addnumber" name="addnumber[]" class="js-example-basic-multiple" required multiple="multiple">
                                                                                             
                                                                                         </select>
                                                                                     </div>
@@ -318,7 +318,10 @@
                 }
             ]
         } );
-        $('.js-example-basic-multiple').select2();
+        $('.js-example-basic-multiple').select2({
+            placeholder: "Select number",
+        }
+        );
         
         function cb(start, end) {
             startdate = start;
@@ -545,7 +548,9 @@
                         selectHtml +=`<option>${val}</option>`;
                     })
                     $('#addnumber').html(selectHtml);
-                    $('.js-example-basic-multiple').select2();
+                    $('.js-example-basic-multiple').select2({
+                        placeholder: "Select number",
+                    });
                     // console.log(data)
                 }, error: function(error){
                     $($this).prop('disabled', false)

@@ -9,7 +9,7 @@
                         <!--Page header-->
                         <div class="page-header">
                             <div class="page-leftheader">
-                                <h4 class="page-title">Edit</h4>
+                                <a class="btn btn-primary" href="{{ route('forwarding.index') }}">Back</a>
                             </div>
                             <div class="page-rightheader ml-auto d-lg-flex d-none">
                                 <ol class="breadcrumb">
@@ -26,7 +26,15 @@
                                     <div class="col-12 mb-3">
                                         <div class="e-panel card">
                                             <div class="card-header bg-light border-bottom">
-                                                <h2>{{$twilio_number->friendlyName}} ({{$twilio_number->phoneNumber}})</h2>
+                                                <div class="d-flex" style="width:100%">
+                                                    <div>
+                                                        <h2>{{$twilio_number->friendlyName}} ({{$twilio_number->phoneNumber}})</h2>
+                                                    </div>
+                                                    <div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
                                             <div class="card-body pb-0">
                                                 <div class="d-flex justify-content-between">
@@ -85,7 +93,9 @@
                                                             
                                                             <div class="form-group mt-2">
                                                                 <label>Upload Voice mail message</label>
-                                                                <input type="file" name="voicemail" class="form-control" accept=".mp3">
+                                                                <div class="form-control pb-4">
+                                                                    <input class="mb-2" type="file" name="voicemail"  accept=".mp3">
+                                                                </div>
                                                                 @if($twilio_number->voicemail)
                                                                 <audio controls class="mt-2">
                                                                   <source src="{{ url($twilio_number->voicemail) }}" type="audio/mpeg">
