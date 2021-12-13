@@ -222,6 +222,16 @@ Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
         'uses' => 'Forwarding\ForwardingController@recording', 
         'as' => 'recording'
     ]);
+    Route::post('/forward-status',[
+        'uses' => 'Forwarding\ForwardingController@forwardStatus', 
+        'as' => 'forward-status'
+    ]);
+    Route::post('/forward-call',[
+        'uses' => 'Forwarding\ForwardingController@forwardCall', 
+        'as' => 'forward-call'
+    ]);
+
+    
 
     /* Route::get('/send-email',[
         'uses' => 'Forwarding\ForwardingController@sendEmail', 

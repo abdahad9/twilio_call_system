@@ -85,14 +85,14 @@
                                                                       <label>Forward Call To</label>
                                                                   </div>
                                                                   <div class="bd-highlight">
-                                                                      <label class="text-muted" style="font-size: 10px;">Enter the number that you want your calls forward to</label>
+                                                                      <label class="text-muted" style="font-size: 10px;">Enter the number that you want your calls forwarded</label>
                                                                   </div>
                                                                 </div>
-                                                                <input type="text" name="forward_to" value="{{$twilio_number->forward_to}}" class="form-control" required pattern="[0-9]{10}">
+                                                                <input type="text" name="forward_to" value="{{$twilio_number->forward_to}}" class="form-control" pattern="[0-9]{10}">
                                                             </div>
                                                             
                                                             <div class="form-group mt-2">
-                                                                <label>Upload Voice mail message</label>
+                                                                <label>Upload voice mail message</label>
                                                                 <div class="form-control pb-4">
                                                                     <input class="mb-2" type="file" name="voicemail"  accept=".mp3">
                                                                 </div>
@@ -103,7 +103,7 @@
                                                                 </audio>
                                                                 @endif
                                                             </div>
-                                                            <div class="form-group mt-2">
+                                                            <div class="form-group mt-2" style="display:none">
                                                                 <label>Send to vm after X number ring</label>
                                                                 <select name="number_of_ring" class="form-control">
                                                                     <option @if($twilio_number->number_of_ring == '1') selected @endif value="1">1 Ring</option>
