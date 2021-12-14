@@ -95,4 +95,37 @@ class TwilioHelper {
 			return false;
 		}
 	}
+
+	function createCall($number, $twilioNumber, $callArray)
+	{
+		try {
+			$sid = config('twilio.sid');
+            $token = config('twilio.token');
+			$twilio = new Client($sid, $token);
+			$call = $twilio->calls
+               ->create($number, // to
+                        $twilioNumber, // from
+                        $callArray
+               );
+            return $call;
+		} catch (\Exception $e) {
+			return $e->getMessage();
+			//return array( 'status' => 'error', 'error' => json_encode($e->getMessage()));
+		}
+	}
+
+	function updateCall($callsid, $updateArray)
+	{
+		try {
+			$sid = config('twilio.sid');
+            $token = config('twilio.token');
+			$twilio = new Client($sid, $token);
+			$call = $twilio->calls($callsid)
+               ->update($updateArray);
+            return true;
+		} catch (\Exception $e) {
+			return $e->getMessage();
+			//return array( 'status' => 'error', 'error' => json_encode($e->getMessage()));
+		}
+	}
 }

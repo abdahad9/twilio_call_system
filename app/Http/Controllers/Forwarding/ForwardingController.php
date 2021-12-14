@@ -182,9 +182,9 @@ class ForwardingController extends Controller
             $twilio_number->friendlyName = $request->friendlyName;
             $twilio_number->number_of_ring = $request->number_of_ring;
             // if else condition
-            if($request->forward_to){
+            //if($request->forward_to){
                 $twilio_number->forward_to = $request->forward_to;
-            }
+            //}
             if($request->recording_status && $request->recording_status == 'on'){
                 // dd($request->recording_status);
                 $twilio_number->recording_status = 'true';
@@ -274,7 +274,28 @@ class ForwardingController extends Controller
                     $timeout = 10;
                 }
                 if($findNumber->forward_to){
+                    $dial = $response->dial('');
                     $arrDial = [
+                        'startConferenceOnEnter' => 'true', 
+                        'endConferenceOnExit' => 'true'
+                    ];
+                    if($findNumber->recording_status && $findNumber->recording_status == 'true'){
+                        $arrDial['record'] = 'record-from-start';
+                        $arrDial['recordingStatusCallback'] = url('forwarding/recording?call_action=recording');
+                    }
+                    $call->DialCallSid = $findNumber->id.'_'.date('Ymdhis');
+                    $call->save();
+                    $dial->conference($call->DialCallSid, $arrDial);
+                    $arrCall = [
+                        "method" => "POST",
+                        "statusCallback" => url('forwarding/forward-status?callid='.$call->id.'&forward_id='.$findNumber->id),
+                        "statusCallbackMethod" => "POST",
+                        "url" => url('forwarding/forward-call?callid='.$call->id.'&forward_id='.$findNumber->id)
+                    ];
+                    $call = $this->twilioHelper->createCall($findNumber->forward_to, $findNumber->phoneNumber, $arrCall);
+                    Log::info('Call status.', ['id' => $call]);
+                    
+                    /*$arrDial = [
                         'action' => url('forwarding/call-status?call_action=true'), 
                         'method' => 'POST', 
                         'timeout' => $timeout
@@ -286,7 +307,7 @@ class ForwardingController extends Controller
                     if($findNumber->whisper_message){
                         $response->say($findNumber->whisper_message);
                     }
-                    $response->dial('+1'.$findNumber->forward_to, $arrDial);
+                    $response->dial('+1'.$findNumber->forward_to, $arrDial);*/
                 }else{
                     if($findNumber && $findNumber->voicemail){
                         $response->play(asset($findNumber->voicemail));
@@ -304,6 +325,43 @@ class ForwardingController extends Controller
             $response = new VoiceResponse();
             return response($response, 200)->header('Content-Type', 'text/xml');
         }
+    }
+
+    public function forwardStatus(Request $request)
+    {
+        Log::info('Call status.', ['forwardStatus' => $request->all()]);
+        $response = new VoiceResponse();
+        if($request->CallStatus == 'busy' || $request->CallStatus == 'no-answer'){
+            $findNumber = CallForwardNumber::where('id',$request->forward_id)->first();
+            if($findNumber && $findNumber->voicemail){
+                $xml = '<Response><Play>'.asset($findNumber->voicemail).'</Play><Record action="'.url('forwarding/recording?call_action=voicemail').'" method="POST" maxLength="20" finishOnKey="*" /></Response>';
+            }else{
+                $xml = '<Response><Say>Please leave a message at the beep.Press the star key when finished.</Say><Record action="'.url('forwarding/recording?call_action=voicemail').'" method="POST" maxLength="20" finishOnKey="*" /></Response>';
+            } 
+            $call = CallForwardLog::where('id', $request->callid)->first();
+            $updateArray = [ "twiml" => $xml ];
+            $call = $this->twilioHelper->updateCall($call->call_sid, $updateArray);
+            Log::info('call update.', ['id' => $call]);
+        }
+        //Log::info('Call status.', ['id' => $call]);
+        return response($response, 200)->header('Content-Type', 'text/xml');
+    }
+
+    public function forwardCall(Request $request)
+    {
+        $response = new VoiceResponse();
+        $findNumber = CallForwardNumber::where('id',$request->forward_id)->first();
+        if($findNumber){
+            $response->say($findNumber->whisper_message);
+            $call = CallForwardLog::where('id', $request->callid)->first();
+            $arrDial = [
+                'startConferenceOnEnter' => 'true', 
+                'endConferenceOnExit' => 'true'
+            ];
+            $dial = $response->dial('');
+            $dial->conference($call->DialCallSid, $arrDial);
+        }
+        return response($response, 200)->header('Content-Type', 'text/xml');
     }
 
     public function callStatus(Request $request)
@@ -326,7 +384,7 @@ class ForwardingController extends Controller
             $call->save();
         }
         if($request->call_action){
-            if($request->call_action && $request->call_action == 'true'){
+            /*if($request->call_action && $request->call_action == 'true'){
                 if($request->DialCallStatus == 'busy' || $request->DialCallStatus == 'no-answer'){
                     $findNumber = CallForwardNumber::where('phoneNumber',$request->To)->first();
                     if($findNumber && $findNumber->voicemail){
@@ -341,7 +399,7 @@ class ForwardingController extends Controller
                 // voice mail code 
             }else{
                 // call status code
-            }
+            }*/
         }else{
             if($call && $call->voicemail){
                 try{

@@ -17,6 +17,8 @@ class VerifyCsrfToken extends Middleware
          '/logs',
          '/forwarding/call-status',
          '/forwarding/incomming',
+         '/forwarding/forward-call',
+         '/forwarding/forward-status',
          '/forwarding/recording'
     ];
 }
