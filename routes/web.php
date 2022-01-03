@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Http\Controllers\Admin\PlanController;
+use App\Http\Controllers\Admin\UserController;
 
 
 Auth::routes();
@@ -232,13 +233,22 @@ Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
         'uses' => 'Forwarding\ForwardingController@forwardCall', 
         'as' => 'forward-call'
     ]);
-
-    
-
-    /* Route::get('/send-email',[
-        'uses' => 'Forwarding\ForwardingController@sendEmail', 
-        'as' => 'send-email'
-    ]); */
     
 });
+
+Route::get('/signup', [PlanController::class, 'signup']);
+
+
+Route::group(['as' => 'plan.', 'prefix' => 'plan'], function () {
+    Route::get('/', [PlanController::class, 'index']);
+    Route::get('/create', [PlanController::class, 'create'])->name('create');
+});
+
+Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::get('/show', [UserController::class, 'show'])->name('show');
+});
+
+
+
 
