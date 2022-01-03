@@ -13,7 +13,7 @@
                                             <svg class="header-icon mt-1" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M21 11.01L3 11v2h18zM3 16h12v2H3zM21 6H3v2.01L21 8z"></path></svg>
                                         </a>
                                     </div>
-                                    <div class="mt-1">
+                                    {{-- <div class="mt-1">
                                         <form class="form-inline">
                                             <div class="search-element">
                                                 <input type="search" class="form-control header-search" placeholder="Search for everything…" aria-label="Search" tabindex="1">
@@ -24,7 +24,7 @@
                                                 </button>
                                             </div>
                                         </form>
-                                    </div><!-- SEARCH -->
+                                    </div><!-- SEARCH --> --}}
                                     <div class="col-2 ml-6">
                                         <a href="/cal">
                                         <button style="padding:8px" type="button" class="btn btn-lg btn-primary btn-block">Connect Your Calender</button>

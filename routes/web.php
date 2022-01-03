@@ -29,6 +29,8 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::resource('cal', 'gCalendarController');
 Route::get('oauth', 'gCalendarController@oauth');
 Route::get('calendarlogout', 'gCalendarController@calendarlogout');
+Route::post('addmeeting', 'gCalendarController@addmeeting')->name('addmeeting');
+Route::post('deletemeeting', 'gCalendarController@deletemeeting')->name('deletemeeting');
 // Auth
 Route::get('/', function () {
     return view('welcome');
