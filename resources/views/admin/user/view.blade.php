@@ -7,12 +7,12 @@
             <!--Page header-->
             <div class="page-header">
                 <div class="page-leftheader">
-                    <h4 class="page-title">Create</h4>
+                    <h4 class="page-title">Admin View</h4>
                 </div>
                 <div class="page-rightheader ml-auto d-lg-flex d-none">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('user.') }}">Users</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create</li>
+                        <li class="breadcrumb-item active" aria-current="page">Admin View</li>
                     </ol>
                 </div>
             </div>

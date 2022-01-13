@@ -26,14 +26,14 @@
                                     <div class="e-table">
                                         <a href="{{ route('plan.create') }}" class="btn btn-primary" style="float: left"><i class="si si-plus" style="margin-left: 6px"></i> Add Plan</a>
                                         <div class="table-responsive table-lg mt-3 pt-2">
-                                            <table class="table table-bordered border-top text-nowrap " >
+                                            <table class="table table-bordered border-top text-nowrap " id="example_number">
                                                 <thead>
                                                     <tr>
                                                         <th>Title</th>
-                                                        <th>Price</th>
-                                                        <th>Numbers</th>
-                                                        <th>Calling Minute</th>
-                                                        <th>Recording Minute</th>
+                                                        <th>Plan Amount</th>
+                                                        <th>Numbers of phone numbers</th>
+                                                        <th>Total Minute Used</th>
+                                                        {{-- <th>Recording Minute</th> --}}
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -42,30 +42,30 @@
                                                         <td>Test Title</td>
                                                         <td>$2</td>
                                                         <td>2</td>
-                                                        <td>50 Minute</td>
+                                                        {{-- <td>50 Minute</td> --}}
                                                         <td>40 Minute</td>
                                                         <td>
-                                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                            <button class="btn btn-primary"><i class="fa fa-eye"></i></button>
                                                         </td>
                                                     </tr>
                                                      <tr>
                                                         <td>Test Title 2</td>
                                                         <td>$2</td>
                                                         <td>2</td>
-                                                        <td>50 Minute</td>
+                                                       {{--  <td>50 Minute</td> --}}
                                                         <td>40 Minute</td>
                                                         <td>
-                                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                            <button class="btn btn-primary"><i class="fa fa-eye"></i></button>
                                                         </td>
                                                     </tr>
                                                      <tr>
                                                         <td>Test Title 3</td>
                                                         <td>$2</td>
                                                         <td>2</td>
-                                                        <td>50 Minute</td>
+                                                        {{-- <td>50 Minute</td> --}}
                                                         <td>40 Minute</td>
                                                         <td>
-                                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                            <button class="btn btn-primary"><i class="fa fa-eye"></i></button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -104,40 +104,18 @@
         // getChart();
         
         $('#example_number').DataTable( {
-            "ajax": '{{ route('forwarding.get_all') }}',
+            "ajax": '{{ route('plan.get-all') }}',
             "processing": true,
             "serverSide": true,
             columns: [
-                { data: "created_at" },
-                { data: "phoneNumber" },
-                { data: "friendlyName" },
-                { data: "forward_to" },
-                { data: "recording_status",
-                    "render": function ( data, type, row, meta ) {
-                        var status = '';
-                        if(data == 'true'){
-                            status = 'On';
-                        }else{
-                            status = 'Off';
-                        }
-                        return status;
-                    }
-                },
-                { data: "number_status",
-                    "render": function ( data, type, row, meta ) {
-                        var status = '';
-                        if(data == 'true'){
-                            status = 'Active';
-                        }else{
-                            status = 'Inactive';
-                        }
-                        return status;
-                    }
-                },
+                { data: "title" },
+                { data: "amount" },
+                { data: "total_number" },
+                { data: "calling_minute" },
                 { data: "id",
                     "render": function ( data, type, row, meta ) {
-                        var url = '{{ url("/") }}/forwarding/edit/'+data
-                        return `<a class="btn" href="${url}"> <i class="ion ion-edit"></i></a>`
+                        var url = '{{ url("/") }}/plan/show/'+data
+                        return `<a class="btn btn-primary" href="${url}"> <i class="fa fa-eye"></i></a>`
                     }
                 }
             ]

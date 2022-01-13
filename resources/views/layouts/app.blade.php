@@ -76,5 +76,11 @@
             @yield('content')
         </main>
     </div>
+    <script src="/backend/assets/js/jquery-3.5.1.min.js"></script>
+
+                <!-- Bootstrap4 js-->
+                <script src="/backend/assets/plugins/bootstrap/popper.min.js"></script>
+                <script src="/backend/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    @yield('scripts')
 </body>
 </html>
