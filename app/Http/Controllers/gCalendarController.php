@@ -10,6 +10,8 @@ use Google_Service_Calendar_Event;
 use Google_Service_Calendar_EventDateTime;
 use Illuminate\Http\Request;
 use Session;
+use DB;
+
 
 class gCalendarController extends Controller
 {
@@ -22,6 +24,7 @@ class gCalendarController extends Controller
         $client->addScope(Google_Service_Calendar::CALENDAR);
 
         $this->client = $client;
+
     }
 
     /**
@@ -31,6 +34,15 @@ class gCalendarController extends Controller
      */
     public function index()
     {
+        $meetings = DB::table('scraper')
+        ->where('status', '!=', 'added')
+        // ->orWhere('archived', '!=', 'yes')
+        ->orWhereNull('status')
+        // ->orWhereNull('archived')
+        ->get();
+
+        // dd($meetings);
+        return view('calander.calander')->with('meetings',$meetings);
 
         session_start();
         if (isset($_SESSION['access_token']) ) {
@@ -38,6 +50,7 @@ class gCalendarController extends Controller
             $service = new Google_Service_Calendar($this->client);
             $service2= new Google_Service_Oauth2($this->client);
             $email= $service2->userinfo_v2_me->get()->email;
+            // dd($email);
             $savingpage = new save;
             $savingpage->save_email($email);
             $savingpage->delete($email);
@@ -56,7 +69,9 @@ class gCalendarController extends Controller
                 $guests= $events[$x]['attendees']; foreach ($guests as $guest) { $Totalguest = $Totalguest. ($guest->email). " \n";};
                $done= $savingpage->save($email,$emailid,$startdate,$events[$x]->getSummary(),$events[$x]->getDescription(),$events[$x]->getLocation(),$events[$x]->getHangoutLink(),$organizerEmail,$phone,$pin,$Totalguest);
              }
-            return "Thank you! You have successfully connected your GSuite Account to NoteTakerPro. By doing this will start to sync your calendar meetings over to our platform.";
+
+             return view('calander.calander');
+            // return "Thank you! You have successfully connected your GSuite Account to NoteTakerPro. By doing this will start to sync your calendar meetings over to our platform.";
 
         } else {
             return redirect('/oauth');
@@ -235,6 +250,34 @@ unset($_SESSION['access_token']);
 
         } else {
             return redirect()->route('oauthCallback');
+        }
+    }
+
+    public function addmeeting(Request $request)
+    { 
+        try{
+
+            DB::update('update scraper set status = ? where ID = ?',['added',$request->id]);
+
+            return response()->json(['Status' => '200']); //return response in json format
+        }
+        catch (\Exception $e) {
+             //catch block for catching all exceptions
+            return redirect()->back()->with('error', 'Error Encounted while approving advertisement'.$e->getMessage());
+        }
+    }
+
+    public function deletemeeting(Request $request)
+    { 
+        try{
+
+            DB::update('update scraper set archived = ? where ID = ?',['yes',$request->id]);
+
+            return response()->json(['Status' => '200']); //return response in json format
+        }
+        catch (\Exception $e) {
+             //catch block for catching all exceptions
+            return redirect()->back()->with('error', 'Error Encounted while approving advertisement'.$e->getMessage());
         }
     }
 }

@@ -118,6 +118,7 @@ function setupClient() {
 
 /* Call a customer from a support ticket */
 window.callCustomer = function() {
+    console.log('hello');
     let allAreFilled = true;
     document.getElementById('contactForm').querySelectorAll("[required]").forEach(function(i) {
         if (!i.value){    

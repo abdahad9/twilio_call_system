@@ -50,7 +50,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-7 col-lg-4">
                                     <div class="error-logo">
-                                        <a href="{{ route('login') }}"><img src="/backend/assets/images/brand/1DashPro-Logo.png" class="header-brand-img dark-logo" alt="logo"></a>
+                                        <a href="{{ route('login') }}"><img src="/backend/assets/images/brand/note-01.png" class="header-brand-img dark-logo" alt="logo"></a>
                                     </div>
                                     <div class="card mb-0">
                                         <div class="card-body">
