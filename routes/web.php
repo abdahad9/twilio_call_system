@@ -235,11 +235,14 @@ Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
 });
 
 Route::get('/signup', [PlanController::class, 'signup']);
-
+Route::post('/signup', [PlanController::class, 'register'])->name('plan.signup');
 
 Route::group(['as' => 'plan.', 'prefix' => 'plan'], function () {
     Route::get('/', [PlanController::class, 'index']);
     Route::get('/create', [PlanController::class, 'create'])->name('create');
+    Route::get('/show/{plan}', [PlanController::class, 'show'])->name('show');
+    Route::post('/store', [PlanController::class, 'store'])->name('store');
+    Route::get('/get-all', [PlanController::class, 'getAll'])->name('get-all');
 });
 
 Route::group(['as' => 'user.', 'prefix' => 'user'], function () {

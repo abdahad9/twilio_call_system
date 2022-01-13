@@ -28,12 +28,15 @@
                                             <label>Status</label>
                                             <select class="form-control">
                                                 <option>All</option>
+                                                <option>Active</option>
+                                                <option>Inactive</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label>Sort</label>
                                             <select class="form-control">
-                                                <option>ASE</option>
+                                                <option>User sign up</option>
+                                                <option>Last bill date</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-3">
@@ -45,8 +48,8 @@
                                             <input class="form-control" type="date" name="to_date">
                                         </div>
                                         <div class="form-group col-lg-3">
-                                            <label>Type</label>
-                                            <input class="form-control" type="text" name="to_date">
+                                            <label>Search</label>
+                                            <input class="form-control" type="text" name="Search">
                                         </div>
                                     </div>
                                     <div class="e-table">
@@ -55,10 +58,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Name</th>
-                                                        <th>Email</th>
+                                                        <th>Login Id</th>
                                                         <th>Phone</th>
-                                                        <th>Date</th>
-                                                        <th>Type</th>
+                                                        <th>Date signup</th>
+                                                        <th>Next Invoice date</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
