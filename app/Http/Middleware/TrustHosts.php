@@ -11,6 +11,7 @@ class TrustHosts extends Middleware
      *
      * @return array
      */
+    protected $proxies = '*';
     public function hosts()
     {
         return [

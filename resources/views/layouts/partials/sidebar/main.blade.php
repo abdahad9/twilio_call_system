@@ -100,7 +100,7 @@
             <!--        <li><a href="datatable.html" class="slide-item">Trends</a></li>-->
             <!--    </ul>-->
             <!--</li>-->
-
+    
      <li><h3>Meetings</h3></li>
             {{-- <li class="slide {{ Request::is('calls') ? 'is-expanded' : '' }}">
                 <a class="side-menu__item {{ Request::is('calls') ? 'active' : '' }}" data-toggle="slide" href="#">
@@ -140,6 +140,7 @@
             <!--        <li><a href="tables.html" class="slide-item">Contacts</a></li>-->
             <!--    </ul>-->
             <!--</li>-->
+            @if(Auth::user()->role == 'admin')
              <li><h3>Settings</h3></li>
             <li class="slide">
                 <a class="side-menu__item" data-toggle="slide" href="#">
@@ -154,7 +155,7 @@
                     <li><a href="{{ route('setting.twilioNumbers') }}" class="slide-item">Twilio Numbers</a></li>
                 </ul>
             </li>
-
+            
             <li><h3>Call Forwarding</h3></li>
             <li class="slide">
                 <a class="side-menu__item"   href="{{ route('forwarding.index') }}">
@@ -182,6 +183,7 @@
                     <span class="side-menu__label">Users</span>
                 </a>
             </li>
+            @endif
            
         </ul>
     </div>

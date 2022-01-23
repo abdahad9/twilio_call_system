@@ -54,19 +54,19 @@
                                     </div>
                                     <div class="e-table">
                                         <div class="table-responsive table-lg mt-3 pt-2">
-                                            <table class="table table-bordered border-top text-nowrap " >
+                                            <table class="table table-bordered border-top text-nowrap " id="example_number">
                                                 <thead>
                                                     <tr>
                                                         <th>Name</th>
-                                                        <th>Login Id</th>
-                                                        <th>Phone</th>
+                                                       {{--  <th>Login Id</th> --}}
+                                                        <th>Email</th>
                                                         <th>Date signup</th>
                                                         <th>Next Invoice date</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                 <tbody>
+                                                 {{-- <tbody>
                                                     <tr>
                                                         <td>Name1</td>
                                                         <td>name@gmail.com</td>
@@ -103,7 +103,7 @@
                                                             <button class="btn btn-primary">Edit</button>
                                                         </td>
                                                     </tr>
-                                                </tbody>
+                                                </tbody> --}}
                                             </table>
                                             <!-- BASIC MODAL -->
                                             
@@ -139,40 +139,29 @@
         // getChart();
         
         $('#example_number').DataTable( {
-            "ajax": '{{ route('forwarding.get_all') }}',
+            "ajax": '{{ route('user.get_all') }}',
             "processing": true,
             "serverSide": true,
             columns: [
+                { data: "name" },
+                { data: "email" },
                 { data: "created_at" },
-                { data: "phoneNumber" },
-                { data: "friendlyName" },
-                { data: "forward_to" },
-                { data: "recording_status",
-                    "render": function ( data, type, row, meta ) {
-                        var status = '';
-                        if(data == 'true'){
-                            status = 'On';
+                { data: "id",
+                    "render" : function (data, type,row){
+                        if(row.subscription){
+                            return row.subscription.next_date;
                         }else{
-                            status = 'Off';
+                            return '';
                         }
-                        return status;
                     }
                 },
-                { data: "number_status",
-                    "render": function ( data, type, row, meta ) {
-                        var status = '';
-                        if(data == 'true'){
-                            status = 'Active';
-                        }else{
-                            status = 'Inactive';
-                        }
-                        return status;
-                    }
-                },
+                { data: "status"},
                 { data: "id",
                     "render": function ( data, type, row, meta ) {
-                        var url = '{{ url("/") }}/forwarding/edit/'+data
-                        return `<a class="btn" href="${url}"> <i class="ion ion-edit"></i></a>`
+                        var viewurl = '{{ url("/") }}/user/show/'+data
+                        // return `<a class="btn" href="${url}"> <i class="ion ion-edit"></i></a>`
+                         return `<a href="${viewurl}" class="btn btn-success">View</a>
+                                                            <button class="btn btn-primary">Edit</button>`;
                     }
                 }
             ]
