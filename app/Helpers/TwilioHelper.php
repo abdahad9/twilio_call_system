@@ -35,6 +35,36 @@ class TwilioHelper {
 		}
 	}
 
+	function getNumberDetail($phonesid)
+	{
+		try{
+			$sid = config('twilio.sid');
+	        $token = config('twilio.token');
+			$twilio = new Client($sid, $token);
+
+			$incoming_phone_number = $twilio->incomingPhoneNumbers($phonesid)
+                                ->fetch();
+            return $incoming_phone_number;
+        }catch(\Exception $e){
+        	dd($e);
+			return false;
+		}
+	}
+
+	function getActiveNumber()
+	{
+		try{
+			$sid = config('twilio.sid');
+            $token = config('twilio.token');
+			$twilio = new Client($sid, $token);
+			$phoneNumbers = $twilio->incomingPhoneNumbers
+            ->read([], 20);
+            return $phoneNumbers;
+		}catch(\Exception $e){
+			return false;
+		}
+	}
+
 	function purchaseNumber($array)
 	{
 		try {

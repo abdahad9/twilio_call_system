@@ -76,6 +76,14 @@ $.oauthpopup = function(options)
 
         });
     });
+ $(window).on("load", function(e) {
+    
+     setTimeout(function(){
+        // alert('test');
+        // $("#global-loader").fadeOut("slow");
+        document.getElementById("call_loader").style.display = "none";
+    }, 2000)
+});
 </script>
 
         

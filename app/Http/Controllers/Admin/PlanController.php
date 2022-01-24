@@ -17,6 +17,17 @@ class PlanController extends Controller
         return view('admin.plan.index');
     }
 
+    public function checkEmail(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if($user){
+            $valid = ['valid' => false ];
+        } else {
+            $valid = ['valid' => true ];
+        }
+        return response()->json($valid);
+    }
+
     public function store(Request $request)
     {
         $stripe = new StripeHelper();

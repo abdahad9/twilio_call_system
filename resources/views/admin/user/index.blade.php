@@ -26,30 +26,30 @@
                                     <div class="row">
                                         <div class="form-group col-lg-3">
                                             <label>Status</label>
-                                            <select class="form-control">
-                                                <option>All</option>
-                                                <option>Active</option>
-                                                <option>Inactive</option>
+                                            <select class="form-control" id="statusFilter">
+                                                <option value="all">All</option>
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label>Sort</label>
-                                            <select class="form-control">
-                                                <option>User sign up</option>
-                                                <option>Last bill date</option>
+                                            <select class="form-control" id="sortby">
+                                                <option value="signup">User sign up</option>
+                                                <option value="billdate">Last bill date</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label>From date</label>
-                                            <input class="form-control" type="date" name="form_date">
+                                            <input class="form-control" type="date" name="form_date" id="startdate">
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label>To date</label>
-                                            <input class="form-control" type="date" name="to_date">
+                                            <input class="form-control" type="date" name="to_date" id="enddate">
                                         </div>
                                         <div class="form-group col-lg-3">
                                             <label>Search</label>
-                                            <input class="form-control" type="text" name="Search">
+                                            <input class="form-control" type="text" name="Search" id="query">
                                         </div>
                                     </div>
                                     <div class="e-table">
@@ -66,44 +66,6 @@
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                 {{-- <tbody>
-                                                    <tr>
-                                                        <td>Name1</td>
-                                                        <td>name@gmail.com</td>
-                                                        <td>+918490052565</td>
-                                                        <td>2021-12-30</td>
-                                                        <td>Member</td>
-                                                        <td>Active</td>
-                                                        <td>
-                                                            <a href="{{ route('user.show') }}" class="btn btn-success">View</a>
-                                                            <button class="btn btn-primary">Edit</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Name1</td>
-                                                        <td>name@gmail.com</td>
-                                                        <td>+918490052565</td>
-                                                        <td>2021-12-30</td>
-                                                        <td>Member</td>
-                                                        <td>Active</td>
-                                                        <td>
-                                                            <button class="btn btn-success">View</button>
-                                                            <button class="btn btn-primary">Edit</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Name1</td>
-                                                        <td>name@gmail.com</td>
-                                                        <td>+918490052565</td>
-                                                        <td>2021-12-30</td>
-                                                        <td>Member</td>
-                                                        <td>Active</td>
-                                                        <td>
-                                                            <button class="btn btn-success">View</button>
-                                                            <button class="btn btn-primary">Edit</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody> --}}
                                             </table>
                                             <!-- BASIC MODAL -->
                                             
@@ -139,7 +101,16 @@
         // getChart();
         
         $('#example_number').DataTable( {
-            "ajax": '{{ route('user.get_all') }}',
+            "ajax": { 
+                 "url": '{{ route('user.get_all') }}',
+                 "data": function ( d ) {
+                    d.status = $("#statusFilter").val();
+                    d.sortby = $("#sortby").val();
+                    d.q = $("#query").val();
+                    d.startdate = $("#startdate").val();
+                    d.enddate = $("#enddate").val();
+                }
+            },
             "processing": true,
             "serverSide": true,
             columns: [
@@ -161,11 +132,32 @@
                         var viewurl = '{{ url("/") }}/user/show/'+data
                         // return `<a class="btn" href="${url}"> <i class="ion ion-edit"></i></a>`
                          return `<a href="${viewurl}" class="btn btn-success">View</a>
-                                                            <button class="btn btn-primary">Edit</button>`;
+                                                            <!--<button class="btn btn-primary">Edit</button>-->`;
                     }
                 }
             ]
         } );
     });
+    $(document).on('change','#statusFilter', function(){
+        $('#example_number').DataTable().draw();
+    });
+
+    $(document).on('change','#sortby', function(){
+        $('#example_number').DataTable().draw();
+    });
+
+    $(document).on('keyup','#query', function(){
+        $('#example_number').DataTable().draw();
+    });
+
+    $(document).on('change','#startdate', function(){
+        $('#example_number').DataTable().draw();
+    });
+
+    $(document).on('change','#enddate', function(){
+        $('#example_number').DataTable().draw();
+    });
+
+    
 </script>
 @stop

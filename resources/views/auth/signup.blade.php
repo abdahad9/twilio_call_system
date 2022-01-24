@@ -258,7 +258,10 @@
           <div class="form-group">
             <label>Email</label>
             <input type="email" name="email" class="form-control" required placeholder="Email"
-            data-bv-notempty-message="The email is required">
+            data-bv-notempty-message="The email is required"
+            data-bv-remote="true"
+            data-bv-remote-url="{{ route('email-check') }}"
+            data-bv-remote-message="The email is not available">
           </div>
 
           <div class="form-group">

@@ -28,7 +28,11 @@
                                             <h4>User Profile</h4>
                                         </div>
                                         <div>
-                                            <button class="btn btn-sm btn-danger">Suspend</button>
+                                            @if($user->status == 'active')
+                                                <a href="{{ url('user/change-status') }}/{{$user->id}}/inactive" class="btn btn-sm btn-danger">Suspend</a>
+                                            @else
+                                                <a href="{{ url('user/change-status') }}/{{$user->id}}/active" class="btn btn-sm btn-success">Active</a>
+                                            @endif
                                             <a href="{{ route('user.') }}" class="btn btn-sm btn-danger">Cancel</a>
                                         </div>
                                     </div>
@@ -105,37 +109,38 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-lg-12">
+                                            @if($user->sub && $user->sub->total_number > count($assign_numbers))
+                                                <button type=""  data-target="#modaldemo2" data-toggle="modal" class="btn btn-primary mb-4" style="float: right"><i class="si si-plus" style="margin-left: 6px"></i> Assign Number</button>
+                                            @endif
                                             <table class="table table-bordered">
                                                 <tr>
                                                     <th>Nickname</th>
                                                     <th>Number</th>
-                                                    
+                                                    <th>Action</th>
                                                 </tr>
-                                                {{-- <tr>
-                                                    <td>test</td>
-                                                    <td>+1510546525</td>
-                                                    
+                                                @foreach($assign_numbers as $a_number)
+                                                 <tr>
+                                                    <td>{{$a_number->friendlyName}}</td>
+                                                    <td>{{$a_number->phoneNumber}}</td>
+                                                    <td>
+                                                        <button class="btn btn-danger" onclick="Swal.fire({
+                                                              title: 'Are you sure?',
+                                                              text: 'You won\'t be able to revert this!',
+                                                              icon: 'warning',
+                                                              showCancelButton: true,
+                                                              confirmButtonColor: '#3085d6',
+                                                              cancelButtonColor: '#d33',
+                                                              confirmButtonText: 'Yes, unassign it!'
+                                                            }).then((result) => {
+                                                              if (result.isConfirmed) {
+                                                                window.location = '{{ url('user/number-unassign') }}/{{$user->id}}/{{$a_number->id}}';
+                                                              }
+                                                            })">
+                                                            Unassign
+                                                        </button>
+                                                    </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>test</td>
-                                                    <td>+1510546525</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>test</td>
-                                                    <td>+1510546525</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>test</td>
-                                                    <td>+1510546525</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>test</td>
-                                                    <td>+1510546525</td>
-                                                    
-                                                </tr> --}}
+                                                @endforeach
                                             </table>
                                         </div>
                                     </div>
@@ -163,6 +168,7 @@
                                                         <th>Package Start Date</th>
                                                         <th>Package Renewal Date</th>
                                                         <th>Package Price</th>
+                                                        <th>Total Number</th>
                                                         
                                                     </tr>
                                                     <tr>
@@ -170,6 +176,7 @@
                                                         <td>{{$user->sub->starting_date}}</td>
                                                         <td>{{$user->sub->next_date}}</td>
                                                         <td>$ {{$user->sub->amount}}</td>
+                                                        <td>{{$user->sub->total_number}}</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -182,9 +189,40 @@
                 </div>
 
             </div>
-                
+            {{-- add new number --}}
+            <div class="modal" id="modaldemo2">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content modal-content-demo">
+                        <form method="POST" action="{{ route('user.number-assign') }}">
+                            @csrf
+                            <div class="modal-header">
+                                <h6 class="modal-title">Add New Number</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" name="user_id" value="{{$user->id}}">
+                                <div class="form-group">
+                                    <label>Select Number</label>
+                                    <select name="sid" class="form-control" required>
+                                        @foreach($numbers as $asign_number)
+                                            @if(!in_array($asign_number['phoneNumber'], $forward_numbers))
+                                                <option value="{{$asign_number['sid']}}">{{$asign_number['friendlyName']}} - {{$asign_number['phoneNumber']}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="d-flex justify-content-between" style="width: 100%;">
+                                    <button class="btn btn-light float-left" data-dismiss="modal" type="button">Close</button>
+                                <button id="add" class="btn btn-indigo" type="submit">Assign</button> 
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div><!-- end app-content-->
 @endsection
 @section('scripts')
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @stop

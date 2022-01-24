@@ -9,7 +9,7 @@ use Twilio\TwiML\VoiceResponse;
 use Twilio\Rest\Client;
 // use Twilio\TwiML;
 use Mail;
-
+use App\Models\TwilioPhoneNumbers;
 
 class CallController extends Controller
 {
@@ -22,30 +22,36 @@ class CallController extends Controller
     public function newCall(Request $request)
     { 
         \Log::info(json_encode($request->all()));
-       
+        //TwilioPhoneNumbers
         $response = new VoiceResponse();
-        $callerIdNumber = config('services.twilio')['number'];
-        $server = $request->input('server');
+
         $fromNumber = $request->input('from_number');
-        $pin = $request->input('pin');
-        $participant_id = $request->input('participant_id');
-        $zoom_pin= $pin.'wwwwww#wwwwww'.$participant_id;
+        $tNumber = TwilioPhoneNumbers::where('phoneNumber', $fromNumber)->with('user')->first();
+        if($tNumber && $tNumber->user->remaining_call_minute > 0){
+            $callerIdNumber = config('services.twilio')['number'];
+            $server = $request->input('server');
+            
+            $pin = $request->input('pin');
+            $participant_id = $request->input('participant_id');
+            $zoom_pin= $pin.'wwwwww#wwwwww'.$participant_id;
 
-        // dd($callerIdNumber,$fromNumber,$pin,$request->input('phoneNumber'));
+            // dd($callerIdNumber,$fromNumber,$pin,$request->input('phoneNumber'));
 
-        $dial = $response->dial(null, ['record' => 'record-from-answer','callerId'=>$fromNumber]);
-        $phoneNumberToDial = $request->input('phoneNumber');
+            $dial = $response->dial(null, ['record' => 'record-from-answer','callerId'=>$fromNumber]);
+            $phoneNumberToDial = $request->input('phoneNumber');
 
-        if (isset($phoneNumberToDial)) {
-            if($server == 'google_meets'){
-                $dial->number($phoneNumberToDial,['sendDigits'=>$pin]);
-            }else{
-                $dial->number($phoneNumberToDial,['sendDigits'=>$zoom_pin]);
+            if (isset($phoneNumberToDial)) {
+                if($server == 'google_meets'){
+                    $dial->number($phoneNumberToDial,['sendDigits'=>$pin]);
+                }else{
+                    $dial->number($phoneNumberToDial,['sendDigits'=>$zoom_pin]);
+                }
+            } else {
+                $dial->client('support_agent');
             }
-        } else {
-            $dial->client('support_agent');
+        }else{
+            $response->say('Your calling minutes are over');
         }
-
         // \Log::info($response);
 
         return $response;
