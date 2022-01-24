@@ -238,6 +238,8 @@ Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
 
 Route::get('/signup', [PlanController::class, 'signup']);
 Route::post('/signup', [PlanController::class, 'register'])->name('plan.signup');
+Route::post('/webhook', [PlanController::class, 'stripeWebhook']);
+Route::get('/email-check', [PlanController::class, 'checkEmail'])->name('email-check');
 
 Route::group(['as' => 'plan.', 'prefix' => 'plan'], function () {
     Route::get('/', [PlanController::class, 'index']);
@@ -247,9 +249,13 @@ Route::group(['as' => 'plan.', 'prefix' => 'plan'], function () {
     Route::get('/get-all', [PlanController::class, 'getAll'])->name('get-all');
 });
 
-Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
+Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/', [UserController::class, 'index']);
-    Route::get('/show', [UserController::class, 'show'])->name('show');
+    Route::get('/get-all', [UserController::class, 'getAll'])->name('get_all');
+    Route::get('/show/{user}', [UserController::class, 'show'])->name('show');
+    Route::post('/number-assign', [UserController::class, 'assignNumber'])->name('number-assign');
+    Route::get('/number-unassign/{user}/{twilio_phone_numbers}', [UserController::class, 'unassignNumber'])->name('number-unassign');
+    Route::get('/change-status/{user}/{status}', [UserController::class, 'changeStatus'])->name('change-status');
 });
 
 

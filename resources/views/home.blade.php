@@ -42,9 +42,9 @@
                                     <select name="from_number" id="from_number" class="form-control custom-select select2" required>
                                         <option value="0">--Select--</option>
                                         @foreach ($phoneNumbers as $phone)
-                                            @if(!in_array($phone->phoneNumber, $forwardNumbers))
+                                            {{-- @if(!in_array($phone->phoneNumber, $forwardNumbers)) --}}
                                                 <option value="{{$phone->phoneNumber}}">{{$phone->friendlyName}}</option>
-                                            @endif
+                                            {{-- @endif --}}
                                         @endforeach
                                     </select>
                                 </div>

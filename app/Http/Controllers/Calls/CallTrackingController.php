@@ -11,6 +11,8 @@ use App\CallLog;
 use App\Models\TwilioPhoneNumbers;
 use DB;
 use Mail;
+use Auth;
+use App\User;
 
 class CallTrackingController extends Controller
 {
@@ -38,6 +40,7 @@ class CallTrackingController extends Controller
 
                 $calls = DB::table('call_logs')
                 ->where('call_from', $phonenumber)
+                ->where('user_id', Auth::id())
                 ->orderBy('id', 'DESC')
                 ->get();
 
@@ -64,6 +67,8 @@ class CallTrackingController extends Controller
         $calls = $twilio->calls->page(['direction' => 'outbound-api'], 20);
 
         $CallLogs = new CallLog();
+        $minutes = 0;
+        $from = false;
         foreach ( $calls as $call ) {
             if ( $call->parentCallSid == $callsid ) {
                 $CallLogs->call_from = $call->from;
@@ -81,6 +86,24 @@ class CallTrackingController extends Controller
                     'from' => $call->from,
                     'sid' =>  $call->parentCallSid,  
                 ];
+                $seconds = $call->duration;
+                $minutes = intval($seconds/60);
+                if($seconds > $minutes * 60){
+                    $minutes = $minutes + 1;
+                }
+                $from = $call->from;
+                $tnumber = TwilioPhoneNumbers::where('phoneNumber', $from)->first();
+                if($from){
+                    if($tnumber && $tnumber->user_id){
+                        $user = User::find($tnumber->user_id);
+                        if($user){
+                            $user->remaining_call_minute = $user->remaining_call_minute - $minutes;
+                            $user->save();
+                        }
+                        $CallLogs->user_id = $tnumber->user_id;
+                    }
+                }
+                
             }
         }
         $recordings = $twilio->recordings->read(array('callSid' => $callsid), 50);
@@ -90,7 +113,7 @@ class CallTrackingController extends Controller
 
         $CallLogs->save();
 
-
+        
         Mail::to($mail_to)->send(new \App\Mail\MyTestMail($details));
             \Log::info('Email sent');
             \Log::info('call save in database');
@@ -98,7 +121,7 @@ class CallTrackingController extends Controller
     }
     public function choosenumber(Request $request)
     {
-        $phoneNumbers = TwilioPhoneNumbers::all();
+        $phoneNumbers = TwilioPhoneNumbers::where('user_id', Auth::id())->get();
         return view('calls.choosenumber',compact('phoneNumbers'));
     }
 

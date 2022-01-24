@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TwilioPhoneNumbers;
 use Twilio\Rest\Client;
 use App\Models\CallForwardNumber;
-
+use Auth;
 class HomeController extends Controller
 {
     protected $twilio;
@@ -26,25 +26,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $phoneNumbers = TwilioPhoneNumbers::all();
-        if(count($phoneNumbers) > 0)
-        {
+        $phoneNumbers = TwilioPhoneNumbers::where('user_id', Auth::id())->get();
+        // if(count($phoneNumbers) > 0)
+        // {
             
-        }
-        else
-        {
-            $phoneNumbers = $this->twilio->incomingPhoneNumbers
-            ->read([], 20);
-            foreach($phoneNumbers as $phone){     
-                $number = new TwilioPhoneNumbers();
-                $number->phoneNumber = $phone->phoneNumber;
-                $number->friendlyName = $phone->friendlyName;
-                $number->sid = $phone->sid;
+        // }
+        // else
+        // {
+        //     $phoneNumbers = $this->twilio->incomingPhoneNumbers
+        //     ->read([], 20);
+        //     foreach($phoneNumbers as $phone){     
+        //         $number = new TwilioPhoneNumbers();
+        //         $number->phoneNumber = $phone->phoneNumber;
+        //         $number->friendlyName = $phone->friendlyName;
+        //         $number->sid = $phone->sid;
 
-                $number->save();
-            }
-        }
-        $data['forwardNumbers'] = CallForwardNumber::pluck('phoneNumber')->toArray();
+        //         $number->save();
+        //     }
+        // }
+        //$data['forwardNumbers'] = CallForwardNumber::pluck('phoneNumber')->toArray();
         // dd($data['forwardNumbers']);
         $data['phoneNumbers'] = $phoneNumbers;
         return view('home',$data);

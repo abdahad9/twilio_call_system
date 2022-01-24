@@ -6190,6 +6190,7 @@ function setupHandlers(device) {
     minutes = 0;
     hours = 0;
     clearTimeout(t);
+    document.getElementById("call_loader").style.display = "none";
   });
   /* Callback for when Twilio Client receives a new incoming call */
 
@@ -6299,7 +6300,7 @@ function timer() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\twilio_callmeeting_hans\resources\js\browser-calls.js */"./resources/js/browser-calls.js");
+module.exports = __webpack_require__(/*! D:\upwork\twilio_calling_\twilio_calling_master\resources\js\browser-calls.js */"./resources/js/browser-calls.js");
 
 
 /***/ })

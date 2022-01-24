@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class TwilioPhoneNumbers extends Model
 {
@@ -11,4 +12,10 @@ class TwilioPhoneNumbers extends Model
 		'friendlyName',
 		'sid'
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

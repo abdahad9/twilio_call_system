@@ -39,6 +39,7 @@ function setupHandlers(device) {
 
     /* Report any errors to the call status display */
     device.on('error', function (error) {
+        document.getElementById("call_loader").style.display = "none";
         updateCallStatus("ERROR: " + error.message);
     });
 
@@ -70,6 +71,7 @@ function setupHandlers(device) {
 
     /* Callback for when a call ends */
     device.on('disconnect', function(connection) {
+        console.log('disconnected');
         // Disable the hangup button and enable the call buttons
         hangUpButton.prop("disabled", true);
          $(".call-customer-button").show();
