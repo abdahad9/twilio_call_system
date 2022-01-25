@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\TwilioHelper;
 use App\Models\CallForwardNumber;
+use App\Models\TwilioPhoneNumbers;
 use Twilio\TwiML\VoiceResponse;
 use Illuminate\Support\Facades\Log;
 use App\Models\CallForwardLog;
 use Yajra\Datatables\Facades\Datatables;
 use Illuminate\Support\Facades\DB;
 use Mail;
+use Auth;
+use App\User;
 
 class ForwardingController extends Controller
 {
@@ -22,8 +25,11 @@ class ForwardingController extends Controller
 
     public function index()
     {
-        $data['calllogs'] = CallForwardLog::all();
-        $data['numbers'] = CallForwardNumber::all();
+        $forwardNumbercount = CallForwardNumber::where('user_id',Auth::id())->count();
+        $TwilioNumbercount = TwilioPhoneNumbers::where('user_id',Auth::id())->count();
+        $data['number_count'] = $forwardNumbercount + $TwilioNumbercount;
+        //$data['calllogs'] = CallForwardLog::all();
+        $data['numbers'] = CallForwardNumber::where('user_id',Auth::id())->get();
         return view('forwarding.index',$data);
     }
 
@@ -31,9 +37,9 @@ class ForwardingController extends Controller
     {
         $end = date('Y-m-d', strtotime($request->enddate . ' +1 day'));
         if($request->number){
-            $numbers = CallForwardNumber::whereIn('phoneNumber',$request->number)->pluck('phoneNumber');
+            $numbers = CallForwardNumber::whereIn('phoneNumber',$request->number)->where('user_id',Auth::id())->pluck('phoneNumber');
         }else{
-            $numbers = CallForwardNumber::pluck('phoneNumber');
+            $numbers = CallForwardNumber::where('user_id',Auth::id())->pluck('phoneNumber');
         }
         $dates = array();
         $dateSets = [];
@@ -49,6 +55,7 @@ class ForwardingController extends Controller
             foreach($numbers as $number){
                 $logs = CallForwardLog::select(DB::raw('count(id) as count, MONTH(created_at) as month'))
                   ->groupBy('month')
+                  ->where('user_id',Auth::id())
                   ->where('twilio_number',$number)
                   ->whereYear('created_at', $request->year)
                   ->get();
@@ -86,6 +93,7 @@ class ForwardingController extends Controller
             foreach($numbers as $number){
                 $logs = CallForwardLog::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
                   ->groupBy('date')
+                  ->where('user_id',Auth::id())
                   ->where('twilio_number',$number)
                   ->whereBetween('created_at', [$request->startdate, $end])
                   ->get();
@@ -118,7 +126,7 @@ class ForwardingController extends Controller
 
     public function get_all(Request $request)
     {   
-        return datatables(CallForwardNumber::query())->toJson();
+        return datatables(CallForwardNumber::where('user_id',Auth::id()))->toJson();
     }
     public function updateNumberStatus(Request $request)
     {
@@ -142,7 +150,7 @@ class ForwardingController extends Controller
         }else{
             $logsData = $logsData->whereBetween('call_forward_logs.created_at', [$request->startdate, $end]);
         }
-        return $logsData->with('call_forward_number')->select('call_forward_logs.*');
+        return $logsData->with('call_forward_number')->select('call_forward_logs.*')->where('call_forward_logs.user_id',Auth::id());
     }
 
     public function logExport(Request $request)
@@ -166,14 +174,14 @@ class ForwardingController extends Controller
 
     public function edit($id)
     {
-        $data['twilio_number'] = CallForwardNumber::find($id);
+        $data['twilio_number'] = CallForwardNumber::where('id',$id)->where('user_id',Auth::id())->first();
         return view('forwarding.edit', $data);
     }
 
     public function update(Request $request, $id)
     {
         //dd($request->all());
-        $twilio_number = CallForwardNumber::find($id);
+        $twilio_number = CallForwardNumber::where('id',$id)->where('user_id',Auth::id())->first();
         $arrUpdate = [
             'friendlyName' => $request->friendlyName
         ];
@@ -243,6 +251,7 @@ class ForwardingController extends Controller
                 $number->sid = $purchaseNumber->sid;
                 $number->friendlyName = $purchaseNumber->friendlyName;
                 $number->number_status = 'true';
+                $number->user_id = Auth::id();
                 $is_save = $number->save();
             }
         }
@@ -253,14 +262,15 @@ class ForwardingController extends Controller
 
     public function incomming(Request $request)
     {
-        $findNumber = CallForwardNumber::where('phoneNumber',$request->To)->first();
-        if($findNumber && $findNumber->number_status == 'true'){
+        $findNumber = CallForwardNumber::where('phoneNumber',$request->To)->with('user')->first();
+        if($findNumber && $findNumber->number_status == 'true' && $findNumber->user->remaining_call_minute > 0){
             $call = CallForwardLog::where('call_sid', $request->CallSid)->first();
             if(!$call){
                 $call = new CallForwardLog;
             }
             $call->number = $request->From;
             $call->twilio_number = $request->To;
+            $call->user_id = $findNumber->user_id;
             $call->type = 'inbound';
             $call->call_sid = $request->CallSid;
             $call->save();
@@ -380,6 +390,19 @@ class ForwardingController extends Controller
             }
             if($request->CallDuration){
                 $call->duration = $request->CallDuration;
+
+                $seconds = $request->CallDuration;
+                $minutes = intval($seconds/60);
+                if($seconds > $minutes * 60){
+                    $minutes = $minutes + 1;
+                }
+                if($call->user_id){
+                    $user = User::find($call->user_id);
+                    if($user){
+                        $user->remaining_call_minute = $user->remaining_call_minute - $minutes;
+                        $user->save();
+                    }
+                }
             }
             $call->save();
         }

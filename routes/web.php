@@ -240,6 +240,7 @@ Route::get('/signup', [PlanController::class, 'signup']);
 Route::post('/signup', [PlanController::class, 'register'])->name('plan.signup');
 Route::post('/webhook', [PlanController::class, 'stripeWebhook']);
 Route::get('/email-check', [PlanController::class, 'checkEmail'])->name('email-check');
+Route::get('/signup-thank-you', [PlanController::class, 'signupThankYou'])->name('signup-thank-you'); 
 
 Route::group(['as' => 'plan.', 'prefix' => 'plan'], function () {
     Route::get('/', [PlanController::class, 'index']);

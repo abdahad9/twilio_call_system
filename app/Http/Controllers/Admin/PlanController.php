@@ -9,12 +9,18 @@ use App\Helpers\StripeHelper;
 use App\User;
 use App\Models\Subscription;
 use App\Models\Transaction;
+use Mail;
 
 class PlanController extends Controller
 {
     public function index()
     {
         return view('admin.plan.index');
+    }
+
+    public function signupThankYou()
+    {
+        return view('auth.signup_thankyou');
     }
 
     public function checkEmail(Request $request)
@@ -41,7 +47,7 @@ class PlanController extends Controller
             $arrPlan = array(
                 'amount' => $request->amount * 100,
                 'currency' => 'usd',
-                'interval' => 'day',
+                'interval' => 'month',
                 'product' => $product,
             );
             $activeplan = $stripe->createPlan($arrPlan);
@@ -130,10 +136,29 @@ class PlanController extends Controller
                     // $sub->voicemail_charge = $plan->voicemail_charge;
                     // $sub->phone_number = $plan->phone_number;
                     $sub->save();
+
+                    try{
+                        $mail_to = $user->email;
+                        $details = [
+                            'name' => $user->name,
+                            'email' => $user->email,
+                            'type' => 'user'
+                        ];
+                        Mail::to($mail_to)->send(new \App\Mail\SignupMail($details));
+
+
+                        $details['type'] = 'admin';
+                        $mail_to = 'support@notetakerpro.com';
+                        Mail::to($mail_to)->send(new \App\Mail\SignupMail($details));
+                    
+                    }catch(\Throwable $e){
+                        \Log::info('Call status.', ['id' => $e->getMessage()]);
+                        // dd($e);
+                    }
                 }
             }
         }
-        return redirect('login');
+        return redirect('signup-thank-you');
     }
 
     public function stripeWebhook(Request $request)
@@ -173,16 +198,10 @@ class PlanController extends Controller
         if($subscription){
            $payment->user_id = $subscription->user_id;
            if($status == 'success'){
-            //dd($status);
-                // $subscription->expire_at = date('Y-m-d', strtotime("+".$subscription->duration." days")); 
-                $subscription->save();
-
                 $user = User::where('customer',$request->data['object']['customer'])->first();
                 if($user){
-                        if($subscription->type=='Subscription'){
-                            $user->sub_credits = $subscription->balance;
-                        }
-                        $user->save();
+                     $user->remaining_call_minute =  $user->call_minute;
+                     $user->save();
                 }  
            }
         }else{

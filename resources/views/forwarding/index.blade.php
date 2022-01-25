@@ -113,7 +113,9 @@
                                                 <div class="e-panel card">
                                                     <div class="card-body">
                                                         <div class="e-table">
+                                                            @if(Auth::user()->sub && Auth::user()->sub->total_number > $number_count)
                                                             <button type=""  data-target="#modaldemo2" data-toggle="modal" class="btn btn-primary" style="float: left"><i class="si si-plus" style="margin-left: 6px"></i> Create Number</button>
+                                                            @endif
                                                             <div class="table-responsive table-lg mt-3 pt-2">
                                                                 <table class="table table-bordered border-top text-nowrap " id="example_number">
                                                                     <thead>
@@ -490,7 +492,7 @@
             plugins: {
               title: {
                 display: true,
-                text: (ctx) => '14 Calls from Oct 20, 2021 - Nov 19, 2001',
+                text: (ctx) => `Calls from ${startdate} - ${enddate}`,
               },
               autocolors: {
                 customize(context) {
