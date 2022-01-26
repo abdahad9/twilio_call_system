@@ -155,7 +155,8 @@
                     <li><a href="{{ route('setting.twilioNumbers') }}" class="slide-item">Twilio Numbers</a></li>
                 </ul>
             </li>
-            
+            @endif
+            @if(Auth::user()->role == 'user')
             <li><h3>Call Forwarding</h3></li>
             <li class="slide">
                 <a class="side-menu__item"   href="{{ route('forwarding.index') }}">
@@ -165,7 +166,8 @@
                     <span class="side-menu__label">Call Forwarding</span>
                 </a>
             </li>
-
+            @endif
+            @if(Auth::user()->role == 'admin')
             <li><h3>Users</h3></li>
             <li class="slide">
                 <a class="side-menu__item"   href="{{ route('plan.') }}">

@@ -155,8 +155,8 @@
 <div class="container">
     <main>
     <div class="container">
-      <h5 class="text-center pricing-table-subtitle">Scale from startup to enterprise </h5>
-      <h1 class="text-center pricing-table-title">Choose Plan</h1>
+      {{-- <h5 class="text-center pricing-table-subtitle">We can scale with you from startup to enterprise, We can halp </h5> --}}
+      <h1 class="text-center pricing-table-title" style="font-size:20px">We can scale with you from startup to enterprise, We can halp </h1>
       
       <div class="row">
         @foreach($plans as $plan)
