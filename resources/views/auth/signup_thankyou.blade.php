@@ -9,7 +9,7 @@
         <meta name="keywords" content="admin, bootstrap admin template, bootstrap dashboard, dashboard, panel, simple dashboard html template, dashboard template bootstrap 4, simple admin panel template, bootstrap 4 admin dashboard, html css dashboard template, themeforest admin template, premium bootstrap template, admin panel html template, admin template design, dark admin template, admin dashboard ui, css admin template, cool admin template, nice admin template"/>
 
         <!-- Title -->
-        <title>{{ config('site.site_title') }} - Login</title>
+        <title>{{ config('site.site_title') }} - Thank you</title>
 
         <!--Favicon -->
         <link rel="icon" href="/backend/assets/images/brand/favicon.ico" type="image/x-icon"/>
@@ -55,7 +55,7 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
                                             <div class="text-center  mb-6">
-                                                <h2 class="mb-2">Thank you for signup</h2>
+                                                <h2 class="mb-2">Thank you for signin</h2>
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
                                             @csrf

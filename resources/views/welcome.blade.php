@@ -118,7 +118,13 @@
                         </div>
                    </div>
                     <div style="width: 68%">
-                        <img style="width: 90%; height:580px; margin-top:24px;" src="/backend/assets/notetakergif.gif" alt="No GIF">
+                        <div class="d-flex flex-column bd-highlight mb-3">
+                          <div class="bd-highlight">
+                            <a href="{{ route('plan.signup') }}" class="btn btn-primary btn-lg">Signup</button></a>
+                          <div class="bd-highlight">
+                              <img style="width: 90%; height:580px; margin-top:24px;" src="/backend/assets/notetakergif.gif" alt="No GIF">
+                          </div>
+                        </div>
                     </div>
                </div>
             </div>

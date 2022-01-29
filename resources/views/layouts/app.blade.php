@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('site.site_name', 'Notetakerpro') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -18,6 +18,20 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+     <!-- Style css -->
+        <link href="/backend/assets/css/style.css" rel="stylesheet" />
+
+        <!-- Dark css -->
+        <link href="/backend/assets/css/dark.css" rel="stylesheet" />
+
+        <!-- Skins css -->
+        <link href="/backend/assets/css/skins.css" rel="stylesheet" />
+
+        <!-- Animate css -->
+        <link href="/backend/assets/css/animated.css" rel="stylesheet" />
+
+        <!---Icons css-->
+        <link href="/backend/assets/css/icons.css" rel="stylesheet" />
 </head>
 <body>
     <div id="app">
@@ -81,6 +95,8 @@
                 <!-- Bootstrap4 js-->
                 <script src="/backend/assets/plugins/bootstrap/popper.min.js"></script>
                 <script src="/backend/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+                <!-- Loader js-->
+        <script src="/backend/assets/js/loader.js"></script>
     @yield('scripts')
 </body>
 </html>

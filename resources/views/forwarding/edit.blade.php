@@ -69,7 +69,7 @@
                                                             </div>
                                                             <div class="form-group mt-2">
                                                                 <label>Whisper Message</label>
-                                                                <input type="text" name="whisper_message" value="{{$twilio_number->whisper_message}}" class="form-control" required>
+                                                                <input type="text" name="whisper_message" @if($twilio_number->whisper_message && $twilio_number->whisper_message != '') value="{{$twilio_number->whisper_message}}" @else value="This call is from note taker pro" @endif class="form-control" required>
                                                             </div>
                                                             <div class="form-group mt-2">
                                                                 <div class="form-check">
