@@ -234,6 +234,7 @@ Route::group(['as' => 'forwarding.', 'prefix' => 'forwarding'], function () {
         'as' => 'forward-call'
     ]);
     
+    
 });
 
 Route::get('/signup', [PlanController::class, 'signup']);
