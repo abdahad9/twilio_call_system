@@ -55,7 +55,7 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
                                             <div class="text-center  mb-6">
-                                                <h2 class="mb-2">Thank you for signin</h2>
+                                                <h2 class="mb-2">Thank you for signing</h2>
                                             </div>
                                             <form method="POST" action="{{ route('login') }}">
                                             @csrf
