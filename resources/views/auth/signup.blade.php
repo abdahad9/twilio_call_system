@@ -151,8 +151,25 @@
 .help-block{
     color: #fe397a;
 }
+#global-loader {
+    position: fixed;
+    z-index: 50000;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    margin: 0 auto;
+    text-align: center;
+}
 </style>
+
 <div class="container">
+     <!---Global-loader-->
+        <div id="global-loader" >
+            <img src="/backend/assets/images/svgs/loader.svg" alt="loader">
+        </div>
+        <!---/Global-loader-->
     <main>
     <div class="container">
       {{-- <h5 class="text-center pricing-table-subtitle">We can scale with you from startup to enterprise, We can halp </h5> --}}
@@ -340,6 +357,7 @@
     var html = `<option value="${id}">${title}</option>`;
     $('#modal_plan').html(html);
     $("#exampleModal").modal('show');
+    // document.getElementById("global-loader").style.display = "block";
    });
     $(function(){
         $('#signInForm').bootstrapValidator();
@@ -348,12 +366,14 @@
          $("#purchase_button").prop("disabled", true);
         var tokenVAlue = $('#token').val();
             if(tokenVAlue){
+                document.getElementById("global-loader").style.display = "block";
                 $('#signInForm').submit();
             }else{
                 stripe.createToken(cardElement).then(function(result) {
                     if(result.token){
                        console.log(result.token);
                           $('#token').val(result.token.id);
+                          document.getElementById("global-loader").style.display = "block";
                           $('#signInForm').submit();
                     }else{
                           alert('Please add valid detail for card!');

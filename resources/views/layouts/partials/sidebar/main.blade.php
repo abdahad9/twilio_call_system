@@ -18,8 +18,20 @@
                     <img src="{{ asset('storage/' . config('site.profile')) }}" alt="user-img" class="avatar-xl rounded-circle mb-1">
                 </div>
                 <div class="user-info">
-                    <h5 class=" mb-0 font-weight-normal"> {{ config('site.user_name') }}</h5>
-                    <span class="text-muted app-sidebar__user-name text-sm">{{ config('site.user_position') }}</span>
+                    <h5 class=" mb-0 font-weight-normal"> 
+                        @if(Auth::user()->role === 'admin')
+                            {{ config('site.user_name') }}
+                        @else
+                            {{ Auth::user()->name }}
+                        @endif
+                    </h5>
+                    <span class="text-muted app-sidebar__user-name text-sm">
+                        @if(Auth::user()->role === 'admin')
+                            {{ config('site.user_position') }}
+                        @else
+                            User
+                        @endif
+                    </span>
                 </div>
             </div>
         </div>

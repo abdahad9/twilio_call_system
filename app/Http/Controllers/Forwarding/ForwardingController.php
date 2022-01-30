@@ -362,7 +362,10 @@ class ForwardingController extends Controller
         $response = new VoiceResponse();
         $findNumber = CallForwardNumber::where('id',$request->forward_id)->first();
         if($findNumber){
-            $response->say($findNumber->whisper_message);
+            $say = $response->say('Hey, ');
+            $say->break_(['strength' => 'x-weak', 'time' => '1000ms']);
+            $say->prosody($findNumber->whisper_message, ['rate' => '85%']);
+            // $response->say($findNumber->whisper_message);
             $call = CallForwardLog::where('id', $request->callid)->first();
             $arrDial = [
                 'startConferenceOnEnter' => 'true', 
