@@ -443,7 +443,10 @@ class ForwardingController extends Controller
                     // dd($details);
                     // $mail_to = 'fvthakor11@gmail.com';
                     Mail::to($mail_to)->send(new \App\Mail\Callforward($details));
-                
+                    $user = User::find($call->user_id);
+                    if($user){
+                        Mail::to($user->email)->send(new \App\Mail\Callforward($details));
+                    }
                 }catch(\Throwable $e){
                     Log::info('Call status.', ['id' => $e->getMessage()]);
                     // dd($e);
