@@ -300,6 +300,7 @@ class ForwardingController extends Controller
                         "method" => "POST",
                         "statusCallback" => url('forwarding/forward-status?callid='.$call->id.'&forward_id='.$findNumber->id),
                         "statusCallbackMethod" => "POST",
+                        "timeout" => 25,
                         "url" => url('forwarding/forward-call?callid='.$call->id.'&forward_id='.$findNumber->id)
                     ];
                     $call = $this->twilioHelper->createCall($findNumber->forward_to, $findNumber->phoneNumber, $arrCall);
