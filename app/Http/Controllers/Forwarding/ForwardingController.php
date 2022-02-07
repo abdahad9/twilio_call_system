@@ -300,6 +300,7 @@ class ForwardingController extends Controller
                         "method" => "POST",
                         "statusCallback" => url('forwarding/forward-status?callid='.$call->id.'&forward_id='.$findNumber->id),
                         "statusCallbackMethod" => "POST",
+                        "timeout" => 25,
                         "url" => url('forwarding/forward-call?callid='.$call->id.'&forward_id='.$findNumber->id)
                     ];
                     $call = $this->twilioHelper->createCall($findNumber->forward_to, $findNumber->phoneNumber, $arrCall);
@@ -443,7 +444,10 @@ class ForwardingController extends Controller
                     // dd($details);
                     // $mail_to = 'fvthakor11@gmail.com';
                     Mail::to($mail_to)->send(new \App\Mail\Callforward($details));
-                
+                    $user = User::find($call->user_id);
+                    if($user){
+                        Mail::to($user->email)->send(new \App\Mail\Callforward($details));
+                    }
                 }catch(\Throwable $e){
                     Log::info('Call status.', ['id' => $e->getMessage()]);
                     // dd($e);
