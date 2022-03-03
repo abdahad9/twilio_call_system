@@ -275,7 +275,6 @@ class ForwardingController extends Controller
             $call->call_sid = $request->CallSid;
             $call->save();
             $response = new VoiceResponse();
-            
             if($findNumber && $findNumber->number_status == 'true'){
                 /* */
                 if($findNumber->number_of_ring){
@@ -283,6 +282,7 @@ class ForwardingController extends Controller
                 }else{
                     $timeout = 10;
                 }
+
                 if($findNumber->forward_to){
                     $dial = $response->dial('');
                     $arrDial = [
@@ -442,15 +442,15 @@ class ForwardingController extends Controller
                         'caller' => $call->number
                     ];
                     // dd($details);
-                    // $mail_to = 'fvthakor11@gmail.com';
-                    Mail::to($mail_to)->send(new \App\Mail\Callforward($details));
+                    $mail_to = 'fvthakor11@gmail.com';
+                    $responseData = Mail::to($mail_to)->send(new \App\Mail\Callforward($details));
                     $user = User::find($call->user_id);
                     if($user){
                         Mail::to($user->email)->send(new \App\Mail\Callforward($details));
                     }
                 }catch(\Throwable $e){
                     Log::info('Call status.', ['id' => $e->getMessage()]);
-                    // dd($e);
+                    dd($e);
                 }
             }
         }
