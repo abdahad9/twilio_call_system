@@ -27,7 +27,7 @@ class UserController extends Controller
         $activeNumbers = $this->twilio->getActiveNumber();
         $numbers = [];
         $forwardNumbers = CallForwardNumber::pluck('phoneNumber')->toArray();
-        $TwilioPhoneNumbers = TwilioPhoneNumbers::pluck('phoneNumber')->toArray();
+        $TwilioPhoneNumbers = TwilioPhoneNumbers::where('user_id',null)->pluck('phoneNumber')->toArray();
         
         $forwardNumbers = array_merge($forwardNumbers,$TwilioPhoneNumbers);
         foreach($activeNumbers as $phone){    
