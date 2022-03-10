@@ -114,10 +114,15 @@ class CallTrackingController extends Controller
 
         $CallLogs->save();
 
-        
-        Mail::to($mail_to)->send(new \App\Mail\MyTestMail($details));
+        try{
+            Mail::to($mail_to)->send(new \App\Mail\MyTestMail($details));
             \Log::info('Email sent');
             \Log::info('call save in database');
+        }catch(\Throwable $e){
+            \Log::info('Call status.', ['id' => $e->getMessage()]);
+            // dd($e);
+        }
+        
         return response()->json('success', 200);
     }
     public function choosenumber(Request $request)

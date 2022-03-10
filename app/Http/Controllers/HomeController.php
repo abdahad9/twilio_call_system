@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TwilioPhoneNumbers;
 use Twilio\Rest\Client;
+use App\Helpers\TwilioHelper;
 use App\Models\CallForwardNumber;
 use Auth;
 class HomeController extends Controller
 {
     protected $twilio;
-    function __construct()
+    function __construct(TwilioHelper $twilioHelper)
     {
+        $this->twilio=$twilioHelper;
         // $this->middleware(['owner']);
-            $sid = config('services.twilio')['accountSid'];
-            $token = '31b5ccf8aa1cca5177b956c54d4cfb4b';
-            $this->twilio = new Client($sid, $token);
+            // $sid = config('services.twilio')['accountSid'];
+            // $token = '31b5ccf8aa1cca5177b956c54d4cfb4b';
+            // $this->twilio = new Client($sid, $token);
     }
 
 
@@ -38,7 +40,7 @@ class HomeController extends Controller
                 CallForwardNumber::where('phoneNumber', $dNumber)->delete();
             }
         }
-        
+
         $phoneNumbers = CallForwardNumber::where('user_id', Auth::id())->get();
         // if(count($phoneNumbers) > 0)
         // {
