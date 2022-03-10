@@ -26,7 +26,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $phoneNumbers = TwilioPhoneNumbers::where('user_id', Auth::id())->get();
+        $activeNumbers = $this->twilio->getActiveNumber();
+        $forwardNumbers = CallForwardNumber::pluck('phoneNumber')->whereNotNull('user_id')->toArray();
+        $avilabalNumbers = [];
+        foreach($activeNumbers as $phone){  
+            $avilabalNumbers[] =  $phone->phoneNumber; 
+        }
+        $databaseNumbers = CallForwardNumber::pluck('phoneNumber')->toArray();
+        foreach($databaseNumbers as $dNumber){
+            if(!in_array($dNumber, $avilabalNumbers)){
+                CallForwardNumber::where('phoneNumber', $dNumber)->delete();
+            }
+        }
+        
+        $phoneNumbers = CallForwardNumber::where('user_id', Auth::id())->get();
         // if(count($phoneNumbers) > 0)
         // {
             

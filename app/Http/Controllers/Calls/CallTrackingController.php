@@ -9,6 +9,7 @@ use App\Models\CallNote;
 use App\Models\BlockList;
 use App\CallLog;
 use App\Models\TwilioPhoneNumbers;
+use App\Models\CallForwardNumber;
 use DB;
 use Mail;
 use Auth;
@@ -92,7 +93,7 @@ class CallTrackingController extends Controller
                     $minutes = $minutes + 1;
                 }
                 $from = $call->from;
-                $tnumber = TwilioPhoneNumbers::where('phoneNumber', $from)->first();
+                $tnumber = CallForwardNumber::where('phoneNumber', $from)->first();
                 if($from){
                     if($tnumber && $tnumber->user_id){
                         $user = User::find($tnumber->user_id);
@@ -121,7 +122,7 @@ class CallTrackingController extends Controller
     }
     public function choosenumber(Request $request)
     {
-        $phoneNumbers = TwilioPhoneNumbers::where('user_id', Auth::id())->get();
+        $phoneNumbers = CallForwardNumber::where('user_id', Auth::id())->get();
         return view('calls.choosenumber',compact('phoneNumbers'));
     }
 

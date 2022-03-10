@@ -108,6 +108,7 @@ class TwilioHelper {
 			return true;
 			//print($incoming_phone_number->friendlyName);
 		} catch (\Exception $e) {
+			// dd($e);
 			return false;
 		}
 	}

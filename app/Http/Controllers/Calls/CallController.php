@@ -10,6 +10,7 @@ use Twilio\Rest\Client;
 // use Twilio\TwiML;
 use Mail;
 use App\Models\TwilioPhoneNumbers;
+use App\Models\CallForwardNumber;
 
 class CallController extends Controller
 {
@@ -26,7 +27,7 @@ class CallController extends Controller
         $response = new VoiceResponse();
 
         $fromNumber = $request->input('from_number');
-        $tNumber = TwilioPhoneNumbers::where('phoneNumber', $fromNumber)->with('user')->first();
+        $tNumber = CallForwardNumber::where('phoneNumber', $fromNumber)->with('user')->first();
         if($tNumber && $tNumber->user->remaining_call_minute > 0){
             $callerIdNumber = config('services.twilio')['number'];
             $server = $request->input('server');
