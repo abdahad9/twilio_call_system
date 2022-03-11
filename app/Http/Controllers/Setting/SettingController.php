@@ -18,6 +18,7 @@ use App\PreTripQuestionnaire;
 use GuzzleHttp\Exception\RequestException;
 use App\Http\Controllers\Controller;
 use App\Models\TwilioPhoneNumbers;
+use App\Models\CallForwardNumber;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
@@ -95,7 +96,7 @@ class SettingController extends Controller
           $incoming_phone_number = $this->twilio->incomingPhoneNumbers
                                 ->create(["phoneNumber" => $newnumber]);
 
-         $number = new TwilioPhoneNumbers();
+         $number = new CallForwardNumber();
          $number->sid = $incoming_phone_number->sid;
          $number->phoneNumber = $newnumber;
          $number->friendlyName = $incoming_phone_number->friendlyName;
@@ -122,7 +123,7 @@ class SettingController extends Controller
                                          ]
                                 );
 
-                                DB::table('twilio_phone_numbers')
+                                DB::table('call_forward_numbers')
                                 ->where('phoneNumber','+'.$request->get('phonenumber'))
                                 // ->where('userid',auth()->user()->id)
                                 ->update(['friendlyName' => $incoming_phone_number->friendlyName]);
@@ -533,7 +534,7 @@ class SettingController extends Controller
     }
     public function twilioNumbers()
     {
-        $phoneNumbers = TwilioPhoneNumbers::all();
+        $phoneNumbers = CallForwardNumber::all();
 
         if(count($phoneNumbers) > 0)
         {
@@ -544,7 +545,7 @@ class SettingController extends Controller
             $phoneNumbers = $this->twilio->incomingPhoneNumbers
             ->read([], 20);
             foreach($phoneNumbers as $phone){
-                $number = new TwilioPhoneNumbers();
+                $number = new CallForwardNumber();
                 $number->phoneNumber = $phone->phoneNumber;
                 $number->friendlyName = $phone->friendlyName;
                 $number->sid = $phone->sid;

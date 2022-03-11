@@ -46,7 +46,7 @@ class TwilioHelper {
                                 ->fetch();
             return $incoming_phone_number;
         }catch(\Exception $e){
-        	dd($e);
+        	//dd($e);
 			return false;
 		}
 	}
@@ -108,6 +108,7 @@ class TwilioHelper {
 			return true;
 			//print($incoming_phone_number->friendlyName);
 		} catch (\Exception $e) {
+			// dd($e);
 			return false;
 		}
 	}

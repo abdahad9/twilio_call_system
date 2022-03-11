@@ -26,8 +26,8 @@ class ForwardingController extends Controller
     public function index()
     {
         $forwardNumbercount = CallForwardNumber::where('user_id',Auth::id())->count();
-        $TwilioNumbercount = TwilioPhoneNumbers::where('user_id',Auth::id())->count();
-        $data['number_count'] = $forwardNumbercount + $TwilioNumbercount;
+        // $TwilioNumbercount = TwilioPhoneNumbers::where('user_id',Auth::id())->count();
+        $data['number_count'] = $forwardNumbercount ;
         //$data['calllogs'] = CallForwardLog::all();
         $data['numbers'] = CallForwardNumber::where('user_id',Auth::id())->get();
         return view('forwarding.index',$data);
@@ -183,7 +183,9 @@ class ForwardingController extends Controller
         //dd($request->all());
         $twilio_number = CallForwardNumber::where('id',$id)->where('user_id',Auth::id())->first();
         $arrUpdate = [
-            'friendlyName' => $request->friendlyName
+            'friendlyName' => $request->friendlyName,
+            "statusCallback" => route('forwarding.call-status'),
+            "voiceUrl" => route('forwarding.incomming')
         ];
         $purchaseNumber = $this->twilioHelper->numberUpdate($twilio_number->sid, $arrUpdate);
         if($purchaseNumber){

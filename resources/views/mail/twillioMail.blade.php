@@ -115,8 +115,11 @@
             <p class="text-heading">Call Date & time:</p>
             <p class="text center-text">
                 <?php 
-                $datetime = $details['datetime'];
-                echo $datetime;
+                if(isset($details['datetime'])){
+                    $datetime = $details['datetime'];
+                    echo $datetime;
+                }
+                
                 // $tz = new DateTimeZone('America/Los_Angeles');  
                 // $saleEndDate = new DateTime($datetime->format('Y/m/d H:i:s'));
                 // $saleEndDate->setTimezone($tz);

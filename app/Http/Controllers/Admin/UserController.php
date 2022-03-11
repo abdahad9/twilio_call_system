@@ -26,11 +26,10 @@ class UserController extends Controller
     {
         $activeNumbers = $this->twilio->getActiveNumber();
         $numbers = [];
-        $forwardNumbers = CallForwardNumber::pluck('phoneNumber')->toArray();
-        $TwilioPhoneNumbers = TwilioPhoneNumbers::where('user_id',null)->pluck('phoneNumber')->toArray();
-        
-        $forwardNumbers = array_merge($forwardNumbers,$TwilioPhoneNumbers);
-        foreach($activeNumbers as $phone){    
+        $forwardNumbers = CallForwardNumber::pluck('phoneNumber')->whereNotNull('user_id')->toArray();
+        $avilabalNumbers = [];
+        foreach($activeNumbers as $phone){  
+            $avilabalNumbers[] =  $phone->phoneNumber; 
             if(!in_array($phone->phoneNumber, $forwardNumbers)){
                 $numbers[] = [
                     'phoneNumber' => $phone->phoneNumber,
@@ -39,7 +38,16 @@ class UserController extends Controller
                 ];
             } 
         }
-        $twilio_phone_numbers = TwilioPhoneNumbers::where('user_id',null)->get();
+
+        // $databaseNumbers = CallForwardNumber::pluck('phoneNumber')->toArray();
+        // foreach($databaseNumbers as $dNumber){
+        //     if(!in_array($dNumber, $avilabalNumbers)){
+        //         CallForwardNumber::where('phoneNumber', $dNumber)->delete();
+        //     }
+        // }
+
+        $twilio_phone_numbers = CallForwardNumber::where('user_id',null)->get();
+
         foreach($twilio_phone_numbers as $tpNumber){
             $numbers[] = [
                     'phoneNumber' => $tpNumber->phoneNumber,
@@ -51,7 +59,8 @@ class UserController extends Controller
         $data['numbers'] = $numbers;
         // dd($data['numbers']);
         $data['user'] = $user;
-        $data['assign_numbers']  = TwilioPhoneNumbers::where('user_id',$user->id)->get();
+        // dd($data['user']->sub);
+        $data['assign_numbers']  = CallForwardNumber::where('user_id',$user->id)->get();
         $data['user_ips'] = UserIp::where('user_id',$user->id)->paginate(3);
         return view('admin.user.view', $data);
     }
@@ -92,27 +101,51 @@ class UserController extends Controller
     public function assignNumber(Request $request)
     {
         $getNumber = $this->twilio->getNumberDetail($request->sid);
-        // dd($getNumber, $request->sid);
         if($getNumber){
-            
-            $twilioNumber = TwilioPhoneNumbers::where('user_id',$getNumber->phoneNumber)->first();
+            $arrNumber = array(
+                "statusCallback" => route('forwarding.call-status'),
+                "voiceUrl" => route('forwarding.incomming')
+            );
+            $purchaseNumber = $this->twilio->numberUpdate($request->sid, $arrNumber);
+            $twilioNumber = CallForwardNumber::where('phoneNumber',$getNumber->phoneNumber)->first();
             if($twilioNumber){
                 $twilioNumber->friendlyName = $getNumber->friendlyName;
                 $twilioNumber->user_id = $request->user_id;
+                $twilioNumber->sid = $request->sid;
+                $twilioNumber->phoneNumber = $getNumber->phoneNumber;
+                $twilioNumber->number_status = 'true';
                 $twilioNumber->save();
             }else{
-                $number = new TwilioPhoneNumbers();
+                $number = new CallForwardNumber;
                 $number->phoneNumber = $getNumber->phoneNumber;
+                $number->sid = $request->sid;
                 $number->friendlyName = $getNumber->friendlyName;
-                $number->sid = $getNumber->sid;
+                $number->number_status = 'true';
                 $number->user_id = $request->user_id;
-                $number->save();
+                $is_save = $number->save();
             }
         }
+        // dd($getNumber, $request->sid);
+        // if($getNumber){
+            
+        //     $twilioNumber = TwilioPhoneNumbers::where('user_id',$getNumber->phoneNumber)->first();
+        //     if($twilioNumber){
+        //         $twilioNumber->friendlyName = $getNumber->friendlyName;
+        //         $twilioNumber->user_id = $request->user_id;
+        //         $twilioNumber->save();
+        //     }else{
+        //         $number = new TwilioPhoneNumbers();
+        //         $number->phoneNumber = $getNumber->phoneNumber;
+        //         $number->friendlyName = $getNumber->friendlyName;
+        //         $number->sid = $getNumber->sid;
+        //         $number->user_id = $request->user_id;
+        //         $number->save();
+        //     }
+        // }
         return redirect('user/show/'.$request->user_id);
     }
 
-    public function unassignNumber(User $user, TwilioPhoneNumbers $twilio_phone_numbers)
+    public function unassignNumber(User $user, CallForwardNumber $twilio_phone_numbers)
     {
         $twilio_phone_numbers->user_id = null;
         $twilio_phone_numbers->save();
