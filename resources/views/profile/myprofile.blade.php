@@ -29,8 +29,21 @@
                                                         <div class="widget-user-image mx-auto mt-5 text-center"><img alt="User Avatar" class="avatar-xxl rounded-circle mb-1" src="{{ asset('storage/' . config('site.profile')) }}"></div>
                                                         <div class="card-body text-center">
                                                             <div class="pro-user">
-                                                                <h4 class="pro-user-username text-dark mb-1 font-weight-bold">{{ config('site.user_name') }}</h4>
-                                                                <h6 class="pro-user-desc text-muted">{{ config('site.user_position') }}</h6>
+                                                                <h4 class="pro-user-username text-dark mb-1 font-weight-bold">
+                                                                    @if(Auth::user()->role == 'admin')
+                                                                        {{ config('site.user_name') }}
+                                                                    @else
+                                                                        {{Auth::user()->name}}
+                                                                    @endif
+                                                                </h4>
+                                                                <h6 class="pro-user-desc text-muted">
+                                                                    @if(Auth::user()->role == 'admin')
+                                                                        {{ config('site.user_position') }}
+                                                                    @else
+                                                                        User
+                                                                    @endif
+                                                                   {{--  {{ config('site.user_position') }} --}}
+                                                                </h6>
                                                                 <a href="{{ route('profile.editprofile') }}" class="btn btn-primary btn-sm mt-3">Edit Profile</a>
                                                                 {{-- <a href="#" class="btn btn-success btn-sm mt-3">Follow</a> --}}
                                                             </div>

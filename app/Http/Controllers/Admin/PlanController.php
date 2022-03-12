@@ -230,5 +230,7 @@ class PlanController extends Controller
         $payment->brand = $request->data['object']['payment_method_details']['card']['brand']; 
         $payment->save();
         return response()->json('',200);
+        
     }
 }
+    
