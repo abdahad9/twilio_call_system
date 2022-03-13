@@ -457,8 +457,6 @@ class ForwardingController extends Controller
                         'phonenumber' => $call->twilio_number,
                         'caller' => $call->number
                     ];
-                    // dd($details);
-                    $mail_to = 'fvthakor11@gmail.com';
                     $responseData = Mail::to($mail_to)->send(new \App\Mail\Callforward($details));
                     $user = User::find($call->user_id);
                     if($user){
