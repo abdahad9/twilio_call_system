@@ -188,6 +188,7 @@ class ForwardingController extends Controller
             "voiceUrl" => route('forwarding.incomming')
         ];
         $purchaseNumber = $this->twilioHelper->numberUpdate($twilio_number->sid, $arrUpdate);
+        // $purchaseNumber = true;
         if($purchaseNumber){
             $twilio_number->friendlyName = $request->friendlyName;
             $twilio_number->number_of_ring = $request->number_of_ring;
@@ -246,7 +247,7 @@ class ForwardingController extends Controller
                 "voiceUrl" => route('forwarding.incomming')
             );
             $purchaseNumber = $this->twilioHelper->purchaseNumber($arrNumber);
-            // dd($purchaseNumber);
+            // $purchaseNumber = (object)['sid' => 'xxxxxxxxxx22322232xxxxxxxx', 'friendlyName' => 'dssfdsfsf'];
             if($purchaseNumber){
                 $number = new CallForwardNumber;
                 $number->phoneNumber = $value;
@@ -255,6 +256,19 @@ class ForwardingController extends Controller
                 $number->number_status = 'true';
                 $number->user_id = Auth::id();
                 $is_save = $number->save();
+
+                try{
+                    $mail_to = 'support@notetakerpro.com';
+                    $details = [
+                        'datetime' => date('Y-m-d H:i:s'),
+                        'number' => $value,
+                        'sid' => $purchaseNumber->sid,
+                        'user' => Auth::user()->name,
+                    ];
+                    Mail::to($mail_to)->send(new \App\Mail\NumberPurchase($details));
+                }catch(\Throwable $e){
+                        \Log::info('Call status.', ['id' => $e->getMessage()]);
+                }
             }
         }
         $request->session()->flash('success', 'Number purchased successfully!');
@@ -477,5 +491,13 @@ class ForwardingController extends Controller
             $call->save();
         }
         return response($response, 200)->header('Content-Type', 'text/xml');
+    }
+
+    public function removeVoicemail($id)
+    {
+        $number = CallForwardNumber::find($id);
+        $number->voicemail = null;
+        $number->save();
+        return back();
     }
 }
