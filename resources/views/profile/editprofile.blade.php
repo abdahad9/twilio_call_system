@@ -28,27 +28,41 @@
                                 <div class="widget-user-image mx-auto mt-5 text-center"><img alt="User Avatar" class="avatar-xxl rounded-circle" src="{{ asset('storage/' . config('site.profile')) }}"></div>
                                 <div class="card-body text-center">
                                     <div class="pro-user">
-                                        <h3 class="pro-user-username text-dark mb-1">{{ config('site.user_name') }}</h3>
-                                        <h6 class="pro-user-desc text-muted">{{ config('site.user_position') }}</h6>
+                                        <h3 class="pro-user-username text-dark mb-1">
+                                            @if(Auth::user()->role == 'admin')
+                                                {{ config('site.user_name') }}
+                                            @else
+                                                {{Auth::user()->name}}
+                                            @endif
+                                        </h3>
+                                        <h6 class="pro-user-desc text-muted">
+                                            @if(Auth::user()->role == 'admin')
+                                                {{ config('site.user_position') }}
+                                            @else
+                                                User
+                                            @endif
+                                        </h6>
                                         <a href="{{ route('profile.myprofile') }}" class="btn btn-primary mt-3">View Profile</a>
                                     </div>
                                 </div>
-                                <div class="card-footer p-0">
-                                    <div class="row">
-                                        <div class="col-sm-6 border-right text-center">
-                                            <div class="description-block p-4">
-                                                <h5 class="description-header mb-1 font-weight-bold">689k</h5>
-                                                <span class="text-muted">Followers</span>
+                                @if(Auth::user()->role == 'admin')
+                                    <div class="card-footer p-0">
+                                        <div class="row">
+                                            <div class="col-sm-6 border-right text-center">
+                                                <div class="description-block p-4">
+                                                    <h5 class="description-header mb-1 font-weight-bold">689k</h5>
+                                                    <span class="text-muted">Followers</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="description-block text-center p-4">
-                                                <h5 class="description-header mb-1 font-weight-bold">3,765</h5>
-                                                <span class="text-muted">Following</span>
+                                            <div class="col-sm-6">
+                                                <div class="description-block text-center p-4">
+                                                    <h5 class="description-header mb-1 font-weight-bold">3,765</h5>
+                                                    <span class="text-muted">Following</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="card">
                                 <div class="card-header">
@@ -83,7 +97,11 @@
                         </div>
                         <div class="col-xl-8 col-lg-7">
                             @include('app-partials.messages', ['errors' => $errors])
-                        <form class="form" action="{{ route('profile.store') }}" method="post" enctype="multipart/form-data">
+                            @if(Auth::user()->role == 'admin')
+                                <form class="form" action="{{ route('profile.store') }}" method="post" enctype="multipart/form-data">
+                            @else
+                                <form class="form" action="javascript:void(0);" method="post" enctype="multipart/form-data">
+                            @endif
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-title">Edit Profile</div>
@@ -94,27 +112,31 @@
                                         <div class="col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Name</label>
-                                                <input class="form-control mb-4" required="" value="{{ config('site.user_name') ? config('site.user_name') : '' }}" name="config[user_name]" type="text">
+                                                <input class="form-control mb-4" required="" @if(Auth::user()->role == 'admin') value="{{ config('site.user_name') ? config('site.user_name') : '' }}" @else value="{{Auth::user()->name }}"  @endif name="config[user_name]" type="text">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label">Position</label>
-                                                <input class="form-control mb-4" required="" value="{{ config('site.user_position') ? config('site.user_position') : '' }}" name="config[user_position]" type="text">
+                                        @if(Auth::user()->role == 'admin')
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">Position</label>
+                                                    <input class="form-control mb-4" required="" value="{{ config('site.user_position') ? config('site.user_position') : '' }}" name="config[user_position]" type="text">
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                         <div class="col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Email address</label>
-                                                <input class="form-control mb-4" required="" value="{{ config('site.user_email') ? config('site.user_email') : '' }}" name="config[user_email]" type="email">
+                                                <input class="form-control mb-4" required="" @if(Auth::user()->role == 'admin') value="{{ config('site.user_email') ? config('site.user_email') : '' }}" @else value="{{Auth::user()->email }}"  @endif name="config[user_email]" type="email">
                                             </div>
                                         </div>
+                                        @if(Auth::user()->role == 'admin')
                                         <div class="col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Phone Number</label>
                                                 <input class="form-control mb-4" required="" value="{{ config('site.user_Phone') ? config('site.user_Phone') : '' }}" name="config[user_Phone]" type="number">
                                             </div>
                                         </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <div class="form-label">Upload Profile Image</div>
@@ -128,6 +150,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="form-label">Address</label>
@@ -170,6 +193,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                     {{-- <div class="card-title font-weight-bold mt-5">External Links:</div>
                                     <div class="row">
@@ -198,15 +222,17 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                    <div class="card-title font-weight-bold mt-5">About:</div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="form-label">About Me</label>
-                                                <textarea rows="5" class="form-control" placeholder="Enter About your description"></textarea>
+                                    @if(Auth::user()->role == 'admin')
+                                        <div class="card-title font-weight-bold mt-5">About:</div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">About Me</label>
+                                                    <textarea rows="5" class="form-control" placeholder="Enter About your description"></textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
                                 @csrf
                                 <div class="card-footer text-right">

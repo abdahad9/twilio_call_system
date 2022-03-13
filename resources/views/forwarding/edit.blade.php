@@ -97,10 +97,18 @@
                                                                     <input class="mb-2" type="file" name="voicemail"  accept=".mp3">
                                                                 </div>
                                                                 @if($twilio_number->voicemail)
-                                                                <audio controls class="mt-2">
-                                                                  <source src="{{ url($twilio_number->voicemail) }}" type="audio/mpeg">
-                                                                  Your browser does not support the audio tag.
-                                                                </audio>
+                                                                <div class="d-flex flex-row bd-highlight align-items-center">
+                                                                  <div class="p-1 bd-highlight">
+                                                                      <audio controls class="mt-2">
+                                                                          <source src="{{ url($twilio_number->voicemail) }}" type="audio/mpeg">
+                                                                          Your browser does not support the audio tag.
+                                                                        </audio>
+                                                                  </div>
+                                                                  <div class="p-1 bd-highlight">
+                                                                      <a href="{{ url('forwarding/voicemail/remove') }}/{{$twilio_number->id}}" class="btn btn-danger">Remove</a>
+                                                                  </div>
+                                                                </div>
+                                                                    
                                                                 @endif
                                                             </div>
                                                             <div class="form-group mt-2" style="display:none">

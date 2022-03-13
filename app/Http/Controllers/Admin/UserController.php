@@ -27,9 +27,9 @@ class UserController extends Controller
         $activeNumbers = $this->twilio->getActiveNumber();
         $numbers = [];
         $forwardNumbers = CallForwardNumber::pluck('phoneNumber')->whereNotNull('user_id')->toArray();
-        $avilabalNumbers = [];
+        //$avilabalNumbers = [];
         foreach($activeNumbers as $phone){  
-            $avilabalNumbers[] =  $phone->phoneNumber; 
+            //$avilabalNumbers[] =  $phone->phoneNumber; 
             if(!in_array($phone->phoneNumber, $forwardNumbers)){
                 $numbers[] = [
                     'phoneNumber' => $phone->phoneNumber,
@@ -45,16 +45,24 @@ class UserController extends Controller
         //         CallForwardNumber::where('phoneNumber', $dNumber)->delete();
         //     }
         // }
-
+        // dd($numbers);
         $twilio_phone_numbers = CallForwardNumber::where('user_id',null)->get();
 
         foreach($twilio_phone_numbers as $tpNumber){
-            $numbers[] = [
-                    'phoneNumber' => $tpNumber->phoneNumber,
-                    'friendlyName' => $tpNumber->friendlyName,
-                    'sid' => $tpNumber->sid
-                ];
+            $checkNumber = [
+                        'phoneNumber' => $tpNumber->phoneNumber,
+                        'friendlyName' => $tpNumber->friendlyName,
+                        'sid' => $tpNumber->sid
+                    ];
+            if(!in_array($checkNumber, $numbers)){
+                $numbers[] = [
+                        'phoneNumber' => $tpNumber->phoneNumber,
+                        'friendlyName' => $tpNumber->friendlyName,
+                        'sid' => $tpNumber->sid
+                    ];
+            }
         }
+        // dd($numbers);
         $data['forward_numbers'] = $forwardNumbers;
         $data['numbers'] = $numbers;
         // dd($data['numbers']);

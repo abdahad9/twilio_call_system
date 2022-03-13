@@ -207,6 +207,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/purchase-number', [
             'uses' => 'Forwarding\ForwardingController@purchaseNumbers',
             'as' => 'purchase-number',
+        ]);
+        Route::get('/voicemail/remove/{id}', [
+            'uses' => 'Forwarding\ForwardingController@removeVoicemail',
+            'as' => 'voicemail-remove',
         ]); 
           
     });
