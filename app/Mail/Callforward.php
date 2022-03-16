@@ -28,8 +28,18 @@ class Callforward extends Mailable
      */
     public function build()
     {
-        return $this->subject('New Voicemail Call from '.$this->details['f_name'].' ')
-        ->view('mail.callForward');
+        if($this->details[] == 'voicemail'){
+            return $this->subject('New Voicemail Call from '.$this->details['f_name'].' ')
+            ->from('support@notetakerpro.com', 'Support Notetakerpro')
+            ->cc(['support@notetakerpro.com'])
+            ->view('mail.callForward');
+        }else{
+            return $this->subject('New Missed Call from '.$this->details['f_name'].' ')
+            ->from('support@notetakerpro.com', 'Support Notetakerpro')
+            ->cc(['support@notetakerpro.com'])
+            ->view('mail.callForward');
+        }
+        
         //return $this->view('view.name');
     }
 }

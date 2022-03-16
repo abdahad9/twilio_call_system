@@ -105,9 +105,7 @@
             <td  style="width:100px;">
               
       <img
-         alt="company name" height="auto" src="https://via.placeholder.com/100
-
-C/O https://placeholder.com/" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="100"
+         alt="Note Taker Pro" height="auto" src="https://notetakerpro.com/storage/GnTCBUwxts2xiYuAQhYyYiMLFyX1CarNHYKgqgp1.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="100"
       />
     
             </td>
@@ -125,7 +123,7 @@ C/O https://placeholder.com/" style="border:0;display:block;outline:none;text-de
                   
       <div
          style="font-family:Tahoma;font-size:24px;font-weight:bold;line-height:1;text-align:center;color:#404145;"
-      >Note Taker Pro</div>
+      >Thank you - Note Taker Pro</div>
     
                 </td>
               </tr>

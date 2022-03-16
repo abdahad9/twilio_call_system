@@ -105,9 +105,7 @@
             <td  style="width:100px;">
               
       <img
-         alt="company name" height="auto" src="https://via.placeholder.com/100
-
-C/O https://placeholder.com/" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="100"
+         alt="Note Taker Pro" height="auto" src="https://notetakerpro.com/storage/GnTCBUwxts2xiYuAQhYyYiMLFyX1CarNHYKgqgp1.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="100"
       />
     
             </td>
@@ -137,8 +135,8 @@ C/O https://placeholder.com/" style="border:0;display:block;outline:none;text-de
                   
       <div
          style="font-family:Tahoma;font-size:16px;font-weight:bold;line-height:1.5;text-align:center;color:#404145;"
-      >Missed Call or VM<br>
-  Received a New Call - Tue, June 30, 2020 5:30 pm</div>
+      > @if($details['type'] == 'voicemail') VM @else Missed Call  @endif <br>
+  Received a New Call - {{ $details['datetime'] }}</div>
     
                 </td>
               </tr>
@@ -343,13 +341,14 @@ C/O https://placeholder.com/" style="border:0;display:block;outline:none;text-de
                 @endif
            </td>
          </tr> 
+         @if($details['type'] == 'voicemail')
         <tr style="white-space: nowrap;border-top: 1px solid #dfdfdf; background-color: #fff">
            <td style="background-color: #F1F1F1;padding-top: 5px; padding-bottom: 5px;padding-left: 10px;text-align: left">
-         Call recording
+              Call recording
 
            </td>
            <td style="white-space: nowrap;background-color: #F1F1F1;padding-top: 5px; padding-bottom: 5px;padding-right: 10px;text-align: right">
-          <?php 
+            <?php 
                 $count =0;
                 $sid = config('twilio.sid');
                         $token = config('twilio.token');
@@ -372,6 +371,7 @@ C/O https://placeholder.com/" style="border:0;display:block;outline:none;text-de
                     <?php } ?>
            </td>
          </tr>
+         @endif
       </table>
     
                 </td>
