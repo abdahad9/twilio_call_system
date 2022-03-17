@@ -29,6 +29,8 @@ class SignupMail extends Mailable
     public function build()
     {
         return $this->subject('Signup')
+        ->from('support@notetakerpro.com', 'Support Notetakerpro')
+        ->cc(['support@notetakerpro.com'])
         ->view('mail.signup');
         //return $this->view('view.name');
     }

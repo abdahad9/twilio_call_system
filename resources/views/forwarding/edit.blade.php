@@ -123,7 +123,7 @@
                                                             <div class="form-group mt-2">
                                                                 <div class="d-flex justify-content-between" style="width: 100%;">
                                                                     <a href="{{ route('forwarding.index') }}" class="btn btn-outline-danger">Cancel</a>
-                                                                     <button class="btn btn-primary">Save</button>
+                                                                     <button class="btn btn-primary" id="saveButton">Save</button>
                                                                 </div>
                                                                 
                                                             </div>
@@ -187,6 +187,8 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    
+    $(document).on('click', '#saveButton', function(){
+        document.getElementById("global-loader").style.display = "block";
+    });
 </script>
 @stop
