@@ -61,7 +61,7 @@
                                                 </div>
                                                 <div class="row border-top mt-2" style="margin-right:-25px">
                                                     <div class="col-md-6">
-                                                        <form method="POST" action="{{ route('forwarding.edit', $twilio_number->id) }}" enctype='multipart/form-data'>
+                                                        <form method="POST" action="{{ route('forwarding.edit', $twilio_number->id) }}" enctype='multipart/form-data'onSubmit="checkFunction()">
                                                             @csrf
                                                             <div class="form-group mt-2">
                                                                 <label>Number Name</label>
@@ -187,8 +187,10 @@
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    $(document).on('click', '#saveButton', function(){
+    function checkFunction(){
+        console.log('test');
         document.getElementById("global-loader").style.display = "block";
-    });
+        return true;
+    }
 </script>
 @stop
