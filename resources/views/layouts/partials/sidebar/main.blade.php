@@ -15,7 +15,8 @@
         <div class="app-sidebar__user">
             <div class="dropdown user-pro-body text-center">
                 <div class="user-pic">
-                    <img src="{{ asset('storage/' . config('site.profile')) }}" alt="user-img" class="avatar-xl rounded-circle mb-1">
+                    <img src="{{ asset('img/account.png') }}" alt="user-img" class="avatar-xl rounded-circle mb-1">
+                   
                 </div>
                 <div class="user-info">
                     <h5 class=" mb-0 font-weight-normal"> 

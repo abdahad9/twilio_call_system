@@ -26,7 +26,11 @@
                                             <div class="row">
                                                 <div class="col-xl-4 col-lg-4 col-md-12">
                                                     <div class="card box-widget widget-user">
-                                                        <div class="widget-user-image mx-auto mt-5 text-center"><img alt="User Avatar" class="avatar-xxl rounded-circle mb-1" src="{{ asset('storage/' . config('site.profile')) }}"></div>
+                                                        <div class="widget-user-image mx-auto mt-5 text-center">
+                                                            {{-- <img alt="User Avatar" class="avatar-xxl rounded-circle mb-1" src="{{ asset('storage/' . config('site.profile')) }}"> --}}
+
+                                                            <img src="{{ asset('img/account.png') }}" alt="user-img" class="avatar-xl rounded-circle mb-1">
+                                                        </div>
                                                         <div class="card-body text-center">
                                                             <div class="pro-user">
                                                                 <h4 class="pro-user-username text-dark mb-1 font-weight-bold">

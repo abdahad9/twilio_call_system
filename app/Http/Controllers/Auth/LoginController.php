@@ -42,6 +42,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        if ( $user->role == 'user' ) {// do your magic here
+            return redirect()->route('forwarding.index');
+        }else{
+            return redirect('/home');
+        }
+    }
+
     public function logout(Request $request ) {
         $request->session()->flush();
         Auth::logout();
