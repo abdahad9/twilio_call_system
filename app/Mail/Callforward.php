@@ -28,7 +28,7 @@ class Callforward extends Mailable
      */
     public function build()
     {
-        if($this->details[] == 'voicemail'){
+        if($this->details['type'] == 'voicemail'){
             return $this->subject('New Voicemail Call from '.$this->details['f_name'].' ')
             ->from('support@notetakerpro.com', 'Support Notetakerpro')
             ->cc(['support@notetakerpro.com'])

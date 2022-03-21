@@ -146,7 +146,9 @@
                                         <div class="dropdown profile-dropdown">
                                             <a href="#" class="nav-link pr-0 pl-2 leading-none" data-toggle="dropdown">
                                                 <span>
-                                                    <img src="{{ asset('storage/' . config('site.profile')) }}" alt="img" class="avatar avatar-md brround">
+                                                    <img src="{{ asset('img/account.png') }}" alt="img" class="avatar avatar-md brround" style="background: transparent;">
+                                                    {{-- <img src="{{ asset('storage/' . config('site.profile')) }}" alt="img" class="avatar avatar-md brround"> --}}
+                                                    
                                                 </span>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated p-0">
@@ -163,12 +165,12 @@
                                                 <a class="dropdown-item border-bottom" href="#">
                                                     <i class="dropdown-icon  mdi mdi-settings"></i> Account Settings
                                                 </a>
-                                                <a class="dropdown-item border-bottom" href="#">
+                                                {{-- <a class="dropdown-item border-bottom" href="#">
                                                     <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
                                                 </a>
                                                 <a class="dropdown-item border-bottom" href="#">
                                                     <i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
-                                                </a>
+                                                </a> --}}
                                                 <a class="dropdown-item border-bottom" href="#">
                                                     <i class="dropdown-icon mdi mdi-compass-outline"></i> Need help?
                                                 </a>
