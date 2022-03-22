@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\UserController;
-
+use App\Http\Controllers\Help\SupportController;
 
 Auth::routes();
 
@@ -261,6 +261,13 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'middleware' => 'auth'], func
     Route::post('/number-assign', [UserController::class, 'assignNumber'])->name('number-assign');
     Route::get('/number-unassign/{user}/{twilio_phone_numbers}', [UserController::class, 'unassignNumber'])->name('number-unassign');
     Route::get('/change-status/{user}/{status}', [UserController::class, 'changeStatus'])->name('change-status');
+});
+
+Route::group(['as' => 'help.', 'prefix' => 'help', 'middleware' => 'auth'], function () {
+    Route::get('/', [SupportController::class, 'index'])->name('index');
+    Route::get('/get-all', [SupportController::class, 'getAll'])->name('get-all');
+    Route::get('/create', [SupportController::class, 'create'])->name('create');
+    Route::post('/store', [SupportController::class, 'store'])->name('store');
 });
 
 
