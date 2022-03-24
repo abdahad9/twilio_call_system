@@ -171,8 +171,13 @@
                                                 <a class="dropdown-item border-bottom" href="#">
                                                     <i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
                                                 </a> --}}
-                                                <a class="dropdown-item border-bottom" href="#">
-                                                    <i class="dropdown-icon mdi mdi-compass-outline"></i> Need help?
+                                                <a class="dropdown-item border-bottom" href="{{ route('help.index') }}">
+                                                    <i class="dropdown-icon mdi mdi-compass-outline"></i> 
+                                                    @if(Auth::user()->role == 'user')
+                                                        Need help?
+                                                    @else
+                                                        Supports
+                                                    @endif
                                                 </a>
                                                  <a class="dropdown-item border-bottom" href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
