@@ -34,15 +34,7 @@ class gCalendarController extends Controller
      */
     public function index()
     {
-        $meetings = DB::table('scraper')
-        ->where('status', '!=', 'added')
-        // ->orWhere('archived', '!=', 'yes')
-        ->orWhereNull('status')
-        // ->orWhereNull('archived')
-        ->get();
-
-        // dd($meetings);
-        return view('calander.calander')->with('meetings',$meetings);
+        
 
         session_start();
         if (isset($_SESSION['access_token']) ) {
@@ -70,7 +62,22 @@ class gCalendarController extends Controller
                $done= $savingpage->save($email,$emailid,$startdate,$events[$x]->getSummary(),$events[$x]->getDescription(),$events[$x]->getLocation(),$events[$x]->getHangoutLink(),$organizerEmail,$phone,$pin,$Totalguest);
              }
 
-             return view('calander.calander');
+             $meetings = DB::table('scraper')
+                ->where('status', '!=', 'added')
+                ->Where('archived', '!=', 'yes')
+                ->orWhereNull('status')
+                ->WhereNull('archived')
+                ->get();
+
+            $addedmeetings = DB::table('scraper')
+                ->where('status', '=', 'added')
+                ->Where('archived', '!=', 'yes')
+                ->orWhereNotNull('status')
+                ->WhereNull('archived')
+                ->get();
+
+            // dd($addedmeetings);
+            return view('calander.calander',compact('meetings','addedmeetings'));
             // return "Thank you! You have successfully connected your GSuite Account to NoteTakerPro. By doing this will start to sync your calendar meetings over to our platform.";
 
         } else {

@@ -72,7 +72,7 @@
                                                                              </td>
                                                                              {{-- <td>Add</td>                                                      --}}
                                                                          </tr>                         
-                                                                         @endforeach()
+                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
                                                     </div>
@@ -92,22 +92,36 @@
                                                 <div class="e-panel card">
                                                     <div class="card-body">
                                                         <div class="e-table">
-                                                            <button type=""  data-target="#modaldemo2" data-toggle="modal" class="btn btn-primary" style="float: left"><i class="si si-plus" style="margin-left: 6px"></i> Create Number</button>
+                                                            {{-- <button type=""  data-target="#modaldemo2" data-toggle="modal" class="btn btn-primary" style="float: left"><i class="si si-plus" style="margin-left: 6px"></i> Create Number</button> --}}
                                                             <div class="table-responsive table-lg mt-3 pt-2">
                                                                 <table class="table table-bordered border-top text-nowrap " id="example_number">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Create Date</th>
-                                                                            <th>Number</th>
-                                                                            <th>Friendly Name</th>
-                                                                            <th>Forward Call To</th>
-                                                                            <th>Call Recording</th>
-                                                                            <th>Status</th>
+                                                                            <th>Start Date & Time</th>
+                                                                            <th>Title</th>
+                                                                            <th>Organizer</th>
+                                                                            <th>Number of Guests</th>
                                                                             <th>Action</th>
                                                                         </tr>
                                                                     </thead>
-                                                                     <tbody>
-                                                                    </tbody>
+                                                                    <tbody>
+                                                                        @foreach ($addedmeetings as $meeting)
+                                                                        <tr>
+                                                                            <td>{{$meeting->START}}</td>
+                                                                            <td>{{$meeting->Title}}</td>
+                                                                            <td>{{$meeting->Organizer}}</td>
+                                                                            <?php
+                                                                            $guestscount = explode("\n", $meeting->Guests);
+                                                                            ?>
+                                                                            <td>{{count($guestscount)-1}}</td>
+                                                                            <td>
+                                                                                {{-- <button class="btn btn-primary" onclick="callmeeting('{{$meeting->Phone}}')">Delete</button> --}}
+                                                                                <button class="btn btn-primary" onclick="deletemeeting('{{$meeting->ID}}')">Delete</button>
+                                                                            </td>
+                                                                            {{-- <td>Add</td>                                                      --}}
+                                                                        </tr>                         
+                                                                        @endforeach
+                                                                   </tbody>
                                                                 </table>
                                                                 <!-- BASIC MODAL -->
                                                                 
